@@ -7,4 +7,4 @@ Proiectu cu restaurant , interfata meniu
   # Scram Master, Gui Developer : Brumariu Cosmin
   # Developer Middleware : Solomon Vlad
   # Tester :Bordean Robert ,Solomon Vlad
-  # Designer 
+  # Designer :Brumariu Cosmin
