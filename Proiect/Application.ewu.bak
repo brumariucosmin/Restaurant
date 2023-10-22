@@ -29,7 +29,7 @@ class Application : Core::Root
   // in the Gallery folder 'Chora'.
   note legend Note1
   {
-    attr Bounds = <10,290,790,520>;
+    attr Bounds = <190,410,970,640>;
   }
 
   $rect <20,20,160,60>
@@ -49,31 +49,102 @@ class Application : Core::Root
     preset Color = #FFFFFFFF;
   }
 
-  $rect <500,63,700,103>
-  object Effects::Int32Effect Int32Effect
+  $rect <20,20,160,60>
+  object Application::Menu Menu
   {
-    preset OnFinished = ConfigureText;
-    preset Symmetric = true;
-    preset NoOfCycles = 1;
-    preset CycleDuration = 2000;
-    preset Enabled = true;
-    preset Value2 = 255;
-    preset Value1 = 0;
-    preset Outlet = ^Text.Opacity;
+    preset Bounds = <0,-1,480,271>;
   }
 
-  $rect <495,110,695,150>
-  slot ConfigureText
+  $rect <20,20,160,60>
+  object Application::WelcomeScreen WelcomeScreen
   {
-    /* put the welcome message to a random position */
-    Text.Bounds.origin = point( math_rand( 0, Bounds.w - Text.Bounds.w), math_rand( 0, Bounds.h - Text.Bounds.h ));
-
-    /* change the color using random red, green and blue values */
-    Text.Color = color((uint8)math_rand( 0x00, 0xFF ), (uint8)math_rand( 0x00, 0xFF ), (uint8)math_rand( 0x00, 0xFF ));
-
-    /* restart the animation */
-    postsignal Int32Effect.StartEffect;
+    preset Bounds = <0,-1,480,271>;
+    preset Opacity = 255;
+    preset Visible = true;
   }
+
+  $rect <580,170,780,210>
+  inherited method Init()
+  {
+    // Just in the moment when the application starts: Create a new instance of
+    // the 'StartDialog'
+    var Application::WelcomeScreen dialog = new Application::WelcomeScreen;
+
+    // Configure the dialog before presenting it. In particular connect slot
+    // methods to receive events when the user has pressed a button in the dialog.
+    dialog.OnShow = onShow;
+
+    // Present the Dialog now.
+    PresentDialog( dialog, null, null, null, null, null, null, null, null, false );
+  }
+
+  $rect <20,20,160,60>
+  object Application::Menu2 Menu2
+  {
+    preset Bounds = <0,-1,480,271>;
+  }
+
+  $rect <580,220,780,260>
+  slot onShow
+  {
+    // Create a new instance of the alert Dialog
+    var Application::Menu alert = new Application::Menu;
+
+    // Configure the alert before presenting it. In particular connect slot
+    // methods to receive events when the user has pressed a button in the alert.
+           alert.OnPress1 = onPress1;
+           alert.OnPress2 = onPress2;
+
+    // Present the alert Dialog now.
+    PresentDialog( alert, null, null, null, null, null, null, null, null, false );
+  }
+
+  $rect <580,270,780,310>
+  slot onPress1
+  {
+    // Create a new instance of the alert Dialog
+    var Application::Menu2 alert = new Application::Menu2;
+
+    // Configure the alert before presenting it. In particular connect slot
+    // methods to receive events when the user has pressed a button in the alert.
+    alert.OnPress2 = onShow;
+    alert.OnPress3 = onPress2;
+
+
+    // Present the alert Dialog now.
+    PresentDialog( alert, null, null, null, null, null, null, null, null, false );
+  }
+
+  $rect <580,320,780,360>
+  slot onPress2
+  {
+    // Create a new instance of the alert Dialog
+    var Application::BuyScreen alert = new Application::BuyScreen;
+
+    // Configure the alert before presenting it. In particular connect slot
+    // methods to receive events when the user has pressed a button in the alert.
+    alert.OnPress = onShow;
+
+
+    // Present the alert Dialog now.
+    PresentDialog( alert, null, null, null, null, null, null, null, null, false );
+  }
+
+  // Directives to adapt the order of the above members according to how these members 
+  // where arranged when the project content was stored. In this manner the storage 
+  // and the expected order of the members don't depend. Merging of changes in the 
+  // project files is simplified.
+  $member Init
+  $member Bounds
+  $member Note1
+  $member Rectangle
+  $member Text
+  $member Menu2
+  $member Menu
+  $member WelcomeScreen
+  $member onShow
+  $member onPress1
+  $member onPress2
 }
 
 $rect <340,140,540,180>
@@ -101,18 +172,18 @@ note group Note2
 // Resurse
 note group Note3
 {
-  attr Bounds = <320,100,560,519>;
+  attr Bounds = <320,100,560,560>;
 }
 
 // Configurati obiecte
 note group Note4
 {
-  attr Bounds = <610,100,850,420>;
+  attr Bounds = <610,100,870,420>;
 }
 
 $rect <340,190,540,230>
 $output false
-resource Resources::Bitmap BackgroundMain
+resource Resources::Bitmap BackgroundMain1
 {
   attr bitmapfile FileName = .\Background.png;
   attr bitmapformat Format = Native;
@@ -129,138 +200,11 @@ class Menu : Core::Group
   $rect <10,300,210,340>
   inherited property Bounds = <0,0,480,272>;
 
-  $rect <10,390,210,430>
-  inherited method UpdateLayout()
-  {
-    // Always invoke the inherited method.
-    super( aSize );
-
-    /*
-
-      HINT:
-
-      This method exists for sophisticated layout calculation. Please note, that in 
-      most cases it is completely sufficient to use the views property 'Layout' to
-      determine how the view should behave when the component is resized.
-
-    */
-
-    /*
-
-      TO DO:
-
-      Put here the code to calculate new position and size of enclosed views. The
-      current (new) size of the component itself is passed in the parameter aSize.
-      For example:
-
-        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
-
-    */
-  }
-
-  $rect <10,350,210,390>
-  inherited method UpdateViewState()
-  {
-    // Always invoke the inherited method.
-    super( aState );
-
-    /*
-
-      HINT 1:
-
-      This method is invoked automatically when the state set of the component has
-      been changed. The new state set can be found in the parameter aState.
-      Following are the important states:
-
-        Enabled   --> The component can react to user inputs.
-
-        Selected  --> The component is selected in context of its owner.
-
-        Focused   --> The component is selected in context of its owner and 
-                      the owner can react to keyboard events. In this manner the
-                      component is also able to react to keyboard events.
-
-        Modal     --> The component is modal. All events are redirected to this
-                      component.
-
-      To determine whether a state is currently active or not you have to test
-      the aState parameter. For example to test the 'Selected' state:
-
-        if ( aState.contains( Core::ViewState[ Selected ]))
-        {
-          ... yes, this component is currently selected.
-        }
-
-    */
-
-    /*
-
-      HINT 2:
-
-      Alternatively you can request this method invocation by executing explicitly
-      following code:
-
-
-        InvalidateViewState();
-
-    */
-      
-    /*
-
-      TO DO 1:
-
-      Put here the code to ensure that the visual aspect of the component does
-      reflect its current state. For example, depending on its 'Enabled' state
-      a component may appear with full colors or pale if it is disabled:
-
-        if ( aState.contains( Core::ViewState[ Enabled ]))
-        {
-          SomeBackgroundView.Opacity = 255;
-          SomeTextView.Color         = #000000FF;
-        }
-        else
-        {
-          SomeBackgroundView.Opacity = 128;
-          SomeTextView.Color         = #00000080;
-        }
-
-
-      TO DO 2:
-
-      You can evaluate here also the state of any other member in your component.
-      For example in a push-button component, the button should appear highlighted
-      as long as the user holds the finger within a touch area of the button:
-
-        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
-          HighlightedBackground.Visible = true;
-        else
-          HighlightedBackground.Visible = false;
-
-      The touch handler itself only requests the update method to be called. Use
-      for this purpose 'InvalidateViewState()' method.
-
-
-      TO DO 3:
-
-      You can calculate here also the position/size of views accordingly to the
-      state of any other member in your component. For example in a slider you
-      can calculate the position of the slider knob from some properties like
-      'SliderValue' and 'SliderRange':
-
-        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
-
-      Changing the 'SliderValue' or 'SliderRange' property should only request
-      the update method to be called. Use for this purpose 'InvalidateViewState()'
-      method.
-
-    */
-  }
-
   $rect <20,20,160,60>
   object Views::Image Background
   {
     preset Bounds = <0,0,480,272>;
-    preset Bitmap = Application::BackgroundMain;
+    preset Bitmap = Application::BackgroundMain1;
   }
 
   $rect <20,20,160,60>
@@ -294,10 +238,37 @@ class Menu : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::PushButton PushButton
   {
-    preset Bounds = <361,226,480,264>;
-    preset Icon = Application::BuyButton;
-    preset Label = "";
-    preset Appearance = WidgetSet::PushButton_Medium;
+    preset Bounds = <231,0,297,41>;
+    preset OnPress = Press1;
+    preset Label = "Aperitive";
+    preset Appearance = WidgetSet::PushButton_Small;
+  }
+
+  $rect <510,10,710,50>
+  slot Press1
+  {
+    postsignal OnPress1;
+  }
+
+  $rect <510,-40,710,0>
+  property slot OnPress1 = null;
+
+  $rect <510,140,710,180>
+  slot Press2
+  {
+    postsignal OnPress2;
+  }
+
+  $rect <510,90,710,130>
+  property slot OnPress2 = null;
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton1
+  {
+    preset Bounds = <380,226,446,267>;
+    preset OnPress = Press2;
+    preset Label = "Cumpara";
+    preset Appearance = WidgetSet::PushButton_Small;
   }
 }
 
@@ -305,167 +276,34 @@ $rect <70,240,270,280>
 $output false
 class WelcomeScreen : Core::Group
 {
-  $rect <10,230,210,270>
-  inherited property Bounds = <0,0,300,200>;
+  $rect <10,300,210,340>
+  inherited property Bounds = <0,0,480,272>;
 
-  $rect <10,390,210,430>
-  inherited method UpdateLayout()
+  $rect <20,20,160,60>
+  object Views::Image Image
   {
-    // Always invoke the inherited method.
-    super( aSize );
-
-    /*
-
-      HINT:
-
-      This method exists for sophisticated layout calculation. Please note, that in 
-      most cases it is completely sufficient to use the views property 'Layout' to
-      determine how the view should behave when the component is resized.
-
-    */
-
-    /*
-
-      TO DO:
-
-      Put here the code to calculate new position and size of enclosed views. The
-      current (new) size of the component itself is passed in the parameter aSize.
-      For example:
-
-        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
-
-    */
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::BackgroundWelcomeScreen;
   }
 
-  $rect <10,350,210,390>
-  inherited method UpdateViewState()
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
   {
-    // Always invoke the inherited method.
-    super( aState );
-
-    /*
-
-      HINT 1:
-
-      This method is invoked automatically when the state set of the component has
-      been changed. The new state set can be found in the parameter aState.
-      Following are the important states:
-
-        Enabled   --> The component can react to user inputs.
-
-        Selected  --> The component is selected in context of its owner.
-
-        Focused   --> The component is selected in context of its owner and 
-                      the owner can react to keyboard events. In this manner the
-                      component is also able to react to keyboard events.
-
-        Modal     --> The component is modal. All events are redirected to this
-                      component.
-
-      To determine whether a state is currently active or not you have to test
-      the aState parameter. For example to test the 'Selected' state:
-
-        if ( aState.contains( Core::ViewState[ Selected ]))
-        {
-          ... yes, this component is currently selected.
-        }
-
-    */
-
-    /*
-
-      HINT 2:
-
-      Alternatively you can request this method invocation by executing explicitly
-      following code:
-
-
-        InvalidateViewState();
-
-    */
-      
-    /*
-
-      TO DO 1:
-
-      Put here the code to ensure that the visual aspect of the component does
-      reflect its current state. For example, depending on its 'Enabled' state
-      a component may appear with full colors or pale if it is disabled:
-
-        if ( aState.contains( Core::ViewState[ Enabled ]))
-        {
-          SomeBackgroundView.Opacity = 255;
-          SomeTextView.Color         = #000000FF;
-        }
-        else
-        {
-          SomeBackgroundView.Opacity = 128;
-          SomeTextView.Color         = #00000080;
-        }
-
-
-      TO DO 2:
-
-      You can evaluate here also the state of any other member in your component.
-      For example in a push-button component, the button should appear highlighted
-      as long as the user holds the finger within a touch area of the button:
-
-        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
-          HighlightedBackground.Visible = true;
-        else
-          HighlightedBackground.Visible = false;
-
-      The touch handler itself only requests the update method to be called. Use
-      for this purpose 'InvalidateViewState()' method.
-
-
-      TO DO 3:
-
-      You can calculate here also the position/size of views accordingly to the
-      state of any other member in your component. For example in a slider you
-      can calculate the position of the slider knob from some properties like
-      'SliderValue' and 'SliderRange':
-
-        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
-
-      Changing the 'SliderValue' or 'SliderRange' property should only request
-      the update method to be called. Use for this purpose 'InvalidateViewState()'
-      method.
-
-    */
+    preset Point4 = <0,0>;
+    preset Point3 = <480,0>;
+    preset Point2 = <480,272>;
+    preset Point1 = <0,272>;
+    preset OnPress = onButton;
   }
 
-  // To do:
-  // 
-  // - Adjust the visible size of your component (the thick blue border).
-  // 
-  // - The simplest way to compose the appearance of the component is to use the \
-  // 'Views' and 'Widget Sets' from the Gallery.
-  // 
-  // - To react to touch or keyboard events use the templates from the Gallery folder \
-  // 'Event Handlers'.
-  // 
-  // - To perform transitions (animations) use the templates from the Gallery folder \
-  // 'Effects'.
-  // 
-  // - To implement the interface of the component use the 'Property' template from \
-  // the Gallery folder 'Chora'.
-  // 
-  // - To store values use the 'Variable' and 'Array' templates available in the \
-  // Gallery folder 'Chora'.
-  // 
-  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
-  // in the Gallery folder 'Chora'.
-  // 
-  // - In the method 'UpdateViewState()' you can put code to update the state of \
-  // views enclosed in your component.
-  // 
-  // - In the method 'UpdateLayout()' you can put code to perform sophisticated layout \
-  // calculation for enclosed views.
-  note legend Note1
+  $rect <519,100,719,140>
+  slot onButton
   {
-    attr Bounds = <220,230,1000,550>;
+    postsignal OnShow;
   }
+
+  $rect <520,20,720,60>
+  property slot OnShow = null;
 }
 
 $rect <340,240,540,280>
@@ -526,4 +364,127 @@ resource Resources::Bitmap BuyButton
   attr framedelay FrameDelay;
   attr bitmapdithering Dithering = Auto;
   attr bitmapmode Mode = Default;
+}
+
+$rect <340,490,540,530>
+$output false
+resource Resources::Bitmap BackgroundWelcomeScreen
+{
+  attr bitmapfile FileName = .\poza_menu_background.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <610,140,860,180>
+$output false
+autoobject Effects::FadeInOutTransition FadeInOutTransition;
+
+$rect <70,290,270,330>
+$output false
+class Menu2 : Core::Group
+{
+  $rect <10,300,210,340>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <20,20,160,60>
+  object Views::Image Background
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::BackgroundMain1;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image1
+  {
+    preset Bounds = <45,30,175,120>;
+    preset Bitmap = Application::Mancare1;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image2
+  {
+    preset Bounds = <210,30,340,120>;
+    preset Bitmap = Application::Mancare2;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image3
+  {
+    preset Bounds = <63,136,193,226>;
+    preset Bitmap = Application::Mancare3;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image4
+  {
+    preset Bounds = <231,136,361,226>;
+    preset Bitmap = Application::Mancare4;
+  }
+
+  $rect <510,80,710,120>
+  slot Press2
+  {
+    postsignal OnPress2;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <231,0,297,41>;
+    preset OnPress = Press2;
+    preset Label = "Deserte";
+    preset Appearance = WidgetSet::PushButton_Small;
+  }
+
+  $rect <519,39,719,79>
+  property slot OnPress2 = null;
+
+  $rect <519,180,719,220>
+  slot Press3
+  {
+    postsignal OnPress3;
+  }
+
+  $rect <528,139,728,179>
+  property slot OnPress3 = null;
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton1
+  {
+    preset Bounds = <380,226,446,267>;
+    preset OnPress = Press3;
+    preset Label = "Cumpara";
+    preset Appearance = WidgetSet::PushButton_Small;
+  }
+}
+
+$rect <620,199,860,239>
+$output false
+autoobject WidgetSet::PushButtonConfig PushButtonConfig;
+
+$rect <70,340,270,380>
+$output false
+class BuyScreen : Core::Group
+{
+  $rect <10,300,210,340>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <20,20,160,60>
+  object Views::Image Background
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::BackgroundMain1;
+  }
+
+  $rect <510,80,710,120>
+  slot Press
+  {
+    postsignal OnPress;
+  }
+
+  $rect <519,39,719,79>
+  property slot OnPress = null;
 }

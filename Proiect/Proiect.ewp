@@ -115,7 +115,7 @@ profile Profile : STM.STM32.RGB565
   attr ScreenOrientation = Normal;
   attr ModeOfBitmapResources = Compressed;
   attr ModeOfStringConstants = Compressed;
-  attr OutputDirectory = .\GeneratedCode;
+  attr OutputDirectory = C:\Users\Lenovo\OneDrive\Desktop\STM32\STM32F746-Discovery\Application\GeneratedCode;
 
   $rect <10,10,154,50>
   macro Author = "Dipl. Ing. Paul Banach and Dipl. Ing. Manfred Schweyer, Copyright (C) TARA Systems GmbH";
@@ -123,6 +123,12 @@ profile Profile : STM.STM32.RGB565
 
 $rect <40,270,240,310>
 unit WidgetSet
+{
+  attr Directory = $Mosaic\;
+}
+
+$rect <40,310,240,350>
+unit Templates
 {
   attr Directory = $Mosaic\;
 }

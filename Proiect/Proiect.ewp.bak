@@ -1,4 +1,4 @@
-$version 12.05
+﻿$version 12.05
 
 // This unit is a part of the Embedded Wizard class library 'Mosaic20'
 $rect <40,70,240,110>
@@ -41,7 +41,7 @@ $rect <540,70,740,110>
 language Default;
 
 // This unit is intended to contain the application class and other GUI components.
-$rect <290,190,490,230>
+$rect <290,180,490,220>
 unit Application
 {
   attr Directory = .\;
@@ -115,8 +115,14 @@ profile Profile : STM.STM32.RGB565
   attr ScreenOrientation = Normal;
   attr ModeOfBitmapResources = Compressed;
   attr ModeOfStringConstants = Compressed;
-  attr OutputDirectory = .\GeneratedCode;
+  attr OutputDirectory = C:\Users\Lenovo\OneDrive\Desktop\STM32\STM32F746-Discovery\Application\GeneratedCode;
 
   $rect <10,10,154,50>
   macro Author = "Dipl. Ing. Paul Banach and Dipl. Ing. Manfred Schweyer, Copyright (C) TARA Systems GmbH";
+}
+
+$rect <40,270,240,310>
+unit WidgetSet
+{
+  attr Directory = $Mosaic\;
 }
