@@ -397,31 +397,10 @@ class Menu2 : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Views::Image Image1
-  {
-    preset Bounds = <45,30,175,120>;
-    preset Bitmap = Application::Mancare1;
-  }
-
-  $rect <20,20,160,60>
   object Views::Image Image2
   {
     preset Bounds = <210,30,340,120>;
     preset Bitmap = Application::Mancare2;
-  }
-
-  $rect <20,20,160,60>
-  object Views::Image Image3
-  {
-    preset Bounds = <63,136,193,226>;
-    preset Bitmap = Application::Mancare3;
-  }
-
-  $rect <20,20,160,60>
-  object Views::Image Image4
-  {
-    preset Bounds = <231,136,361,226>;
-    preset Bitmap = Application::Mancare4;
   }
 
   $rect <510,80,710,120>
@@ -487,4 +466,13 @@ class BuyScreen : Core::Group
 
   $rect <519,39,719,79>
   property slot OnPress = null;
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <366,222,480,272>;
+    preset OnPress = Press;
+    preset Label = "Back";
+    preset Appearance = WidgetSet::PushButton_Medium;
+  }
 }

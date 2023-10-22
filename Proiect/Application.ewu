@@ -84,7 +84,7 @@ class Application : Core::Root
     preset Bounds = <0,-1,480,271>;
   }
 
-  $rect <580,220,780,260>
+  $rect <580,210,780,250>
   slot onShow
   {
     // Create a new instance of the alert Dialog
@@ -99,7 +99,7 @@ class Application : Core::Root
     PresentDialog( alert, null, null, null, null, null, null, null, null, false );
   }
 
-  $rect <580,270,780,310>
+  $rect <580,250,780,290>
   slot onPress1
   {
     // Create a new instance of the alert Dialog
@@ -115,7 +115,7 @@ class Application : Core::Root
     PresentDialog( alert, null, null, null, null, null, null, null, null, false );
   }
 
-  $rect <580,320,780,360>
+  $rect <580,290,780,330>
   slot onPress2
   {
     // Create a new instance of the alert Dialog
@@ -128,6 +128,12 @@ class Application : Core::Root
 
     // Present the alert Dialog now.
     PresentDialog( alert, null, null, null, null, null, null, null, null, false );
+  }
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <570,130,790,330>;
   }
 
   // Directives to adapt the order of the above members according to how these members 
@@ -145,6 +151,7 @@ class Application : Core::Root
   $member onShow
   $member onPress1
   $member onPress2
+  $member Note
 }
 
 $rect <340,140,540,180>
@@ -193,7 +200,7 @@ resource Resources::Bitmap BackgroundMain1
   attr bitmapmode Mode = Default;
 }
 
-$rect <70,190,270,230>
+$rect <70,240,270,280>
 $output false
 class Menu : Core::Group
 {
@@ -244,22 +251,22 @@ class Menu : Core::Group
     preset Appearance = WidgetSet::PushButton_Small;
   }
 
-  $rect <510,10,710,50>
+  $rect <590,170,790,210>
   slot Press1
   {
     postsignal OnPress1;
   }
 
-  $rect <510,-40,710,0>
+  $rect <590,130,790,170>
   property slot OnPress1 = null;
 
-  $rect <510,140,710,180>
+  $rect <590,250,790,290>
   slot Press2
   {
     postsignal OnPress2;
   }
 
-  $rect <510,90,710,130>
+  $rect <590,210,790,250>
   property slot OnPress2 = null;
 
   $rect <20,20,160,60>
@@ -270,9 +277,15 @@ class Menu : Core::Group
     preset Label = "Cumpara";
     preset Appearance = WidgetSet::PushButton_Small;
   }
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <580,90,800,290>;
+  }
 }
 
-$rect <70,240,270,280>
+$rect <70,190,270,230>
 $output false
 class WelcomeScreen : Core::Group
 {
@@ -296,7 +309,7 @@ class WelcomeScreen : Core::Group
     preset OnPress = onButton;
   }
 
-  $rect <519,100,719,140>
+  $rect <519,60,719,100>
   slot onButton
   {
     postsignal OnShow;
@@ -304,6 +317,12 @@ class WelcomeScreen : Core::Group
 
   $rect <520,20,720,60>
   property slot OnShow = null;
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <510,-30,730,170>;
+  }
 }
 
 $rect <340,240,540,280>
@@ -418,16 +437,16 @@ class Menu2 : Core::Group
     preset Appearance = WidgetSet::PushButton_Small;
   }
 
-  $rect <519,39,719,79>
+  $rect <510,40,710,80>
   property slot OnPress2 = null;
 
-  $rect <519,180,719,220>
+  $rect <500,160,700,200>
   slot Press3
   {
     postsignal OnPress3;
   }
 
-  $rect <528,139,728,179>
+  $rect <510,120,710,160>
   property slot OnPress3 = null;
 
   $rect <20,20,160,60>
@@ -437,6 +456,12 @@ class Menu2 : Core::Group
     preset OnPress = Press3;
     preset Label = "Cumpara";
     preset Appearance = WidgetSet::PushButton_Small;
+  }
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <500,10,720,210>;
   }
 }
 
@@ -458,7 +483,7 @@ class BuyScreen : Core::Group
     preset Bitmap = Application::BackgroundMain1;
   }
 
-  $rect <510,80,710,120>
+  $rect <520,80,720,120>
   slot Press
   {
     postsignal OnPress;
@@ -474,5 +499,11 @@ class BuyScreen : Core::Group
     preset OnPress = Press;
     preset Label = "Back";
     preset Appearance = WidgetSet::PushButton_Medium;
+  }
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <510,-30,730,170>;
   }
 }
