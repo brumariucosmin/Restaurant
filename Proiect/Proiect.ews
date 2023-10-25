@@ -1,12 +1,13 @@
 $version 1.0
 
-attr active = Application::Menu2;
+attr active = Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeSelEnd = <8,5>;
-attr codeSelStart = <8,5>;
-attr connectInspectors = true;
+attr codeInspector = Application::Menu.Press1;
+attr codeSelEnd = <0,0>;
+attr codeSelStart = <0,0>;
+attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
 attr extractDoc_DeleteOldFiles = false;
@@ -56,30 +57,61 @@ view class Application::BuyScreen
   attr zoom = 1.0;
 }
 
-view class Application::Application
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
-view class Application::WelcomeScreen
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
 view class Application::Menu
 {
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = Press1;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
   attr scrollTo = <-7,-103>;
   attr zoom = 1.0;
 }
 
+view class Application::WelcomeScreen
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeSelEnd = <26,2>;
+  attr codeSelStart = <26,2>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-103>;
+  attr zoom = 1.0;
+}
+
+view class Application::Application
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = onPress3;
+  attr codeSelEnd = <21,9>;
+  attr codeSelStart = <21,9>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,41>;
+  attr zoom = 1.0;
+}
+
 view class Application::Menu2
 {
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = Press4;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
+  attr scrollTo = <-7,41>;
+  attr zoom = 1.0;
+}
+
+view class Application::EnlargedScreen
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = Press1;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-103>;
   attr zoom = 1.0;
 }

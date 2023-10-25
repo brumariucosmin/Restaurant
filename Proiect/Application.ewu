@@ -103,12 +103,14 @@ class Application : Core::Root
   slot onPress1
   {
     // Create a new instance of the alert Dialog
+
     var Application::Menu2 alert = new Application::Menu2;
 
     // Configure the alert before presenting it. In particular connect slot
     // methods to receive events when the user has pressed a button in the alert.
     alert.OnPress2 = onShow;
     alert.OnPress3 = onPress2;
+    alert.OnPress4 = onPress3;
 
 
     // Present the alert Dialog now.
@@ -133,7 +135,22 @@ class Application : Core::Root
   // Tranziti pagini
   note group Note
   {
-    attr Bounds = <570,130,790,330>;
+    attr Bounds = <570,130,790,390>;
+  }
+
+  $rect <580,330,780,370>
+  slot onPress3
+  {
+    // Create a new instance of the alert Dialog
+    var Application::EnlargedScreen alert1 = new Application::EnlargedScreen;
+
+    // Configure the alert before presenting it. In particular connect slot
+    // methods to receive events when the user has pressed a button in the alert.
+    alert1.OnPress1 = onShow;
+
+
+    // Present the alert Dialog now.
+    PresentDialog( alert1, null, null, null, null, null, null, null, null, false );
   }
 
   // Directives to adapt the order of the above members according to how these members 
@@ -152,6 +169,7 @@ class Application : Core::Root
   $member onPress1
   $member onPress2
   $member Note
+  $member onPress3
 }
 
 $rect <340,140,540,180>
@@ -173,7 +191,7 @@ resource Resources::Font Font
 // Componente&Clase
 note group Note2
 {
-  attr Bounds = <50,100,290,430>;
+  attr Bounds = <50,100,290,530>;
 }
 
 // Resurse
@@ -431,7 +449,7 @@ class Menu2 : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::PushButton PushButton
   {
-    preset Bounds = <231,0,297,41>;
+    preset Bounds = <347,0,413,41>;
     preset OnPress = Press2;
     preset Label = "Deserte";
     preset Appearance = WidgetSet::PushButton_Small;
@@ -440,7 +458,7 @@ class Menu2 : Core::Group
   $rect <510,40,710,80>
   property slot OnPress2 = null;
 
-  $rect <500,160,700,200>
+  $rect <510,160,710,200>
   slot Press3
   {
     postsignal OnPress3;
@@ -463,6 +481,25 @@ class Menu2 : Core::Group
   {
     attr Bounds = <500,10,720,210>;
   }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler OnTouchEnlarge
+  {
+    preset Point4 = <210,30>;
+    preset Point3 = <340,30>;
+    preset Point2 = <340,120>;
+    preset Point1 = <210,120>;
+    preset OnPress = Press4;
+  }
+
+  $rect <520,280,720,320>
+  slot Press4
+  {
+    postsignal OnPress4;
+  }
+
+  $rect <520,240,720,280>
+  property slot OnPress4 = null;
 }
 
 $rect <620,199,860,239>
@@ -506,4 +543,36 @@ class BuyScreen : Core::Group
   {
     attr Bounds = <510,-30,730,170>;
   }
+}
+
+$rect <70,390,270,430>
+$output false
+class EnlargedScreen : Core::Group
+{
+  $rect <10,280,210,320>
+  inherited property Bounds = <0,0,347,240>;
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <0,0,230,240>;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <240,204,347,240>;
+    preset OnPress = Press1;
+    preset Label = "Caption";
+    preset Appearance = WidgetSet::PushButton_Medium;
+  }
+
+  $rect <420,70,620,110>
+  slot Press1
+  {
+    postsignal OnPress1;
+  }
+
+  $rect <420,30,620,70>
+  property slot OnPress1 = null;
 }

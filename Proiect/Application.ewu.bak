@@ -84,7 +84,7 @@ class Application : Core::Root
     preset Bounds = <0,-1,480,271>;
   }
 
-  $rect <580,220,780,260>
+  $rect <580,210,780,250>
   slot onShow
   {
     // Create a new instance of the alert Dialog
@@ -99,23 +99,25 @@ class Application : Core::Root
     PresentDialog( alert, null, null, null, null, null, null, null, null, false );
   }
 
-  $rect <580,270,780,310>
+  $rect <580,250,780,290>
   slot onPress1
   {
     // Create a new instance of the alert Dialog
+
     var Application::Menu2 alert = new Application::Menu2;
 
     // Configure the alert before presenting it. In particular connect slot
     // methods to receive events when the user has pressed a button in the alert.
     alert.OnPress2 = onShow;
     alert.OnPress3 = onPress2;
+    alert.OnPress4 = onPress3;
 
 
     // Present the alert Dialog now.
     PresentDialog( alert, null, null, null, null, null, null, null, null, false );
   }
 
-  $rect <580,320,780,360>
+  $rect <580,290,780,330>
   slot onPress2
   {
     // Create a new instance of the alert Dialog
@@ -128,6 +130,27 @@ class Application : Core::Root
 
     // Present the alert Dialog now.
     PresentDialog( alert, null, null, null, null, null, null, null, null, false );
+  }
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <570,130,790,390>;
+  }
+
+  $rect <580,330,780,370>
+  slot onPress3
+  {
+    // Create a new instance of the alert Dialog
+    var Application::EnlargedScreen alert1 = new Application::EnlargedScreen;
+
+    // Configure the alert before presenting it. In particular connect slot
+    // methods to receive events when the user has pressed a button in the alert.
+    alert1.OnPress2 = onShow;
+
+
+    // Present the alert Dialog now.
+    PresentDialog( alert1, null, null, null, null, null, null, null, null, false );
   }
 
   // Directives to adapt the order of the above members according to how these members 
@@ -145,6 +168,8 @@ class Application : Core::Root
   $member onShow
   $member onPress1
   $member onPress2
+  $member Note
+  $member onPress3
 }
 
 $rect <340,140,540,180>
@@ -166,7 +191,7 @@ resource Resources::Font Font
 // Componente&Clase
 note group Note2
 {
-  attr Bounds = <50,100,290,430>;
+  attr Bounds = <50,100,290,530>;
 }
 
 // Resurse
@@ -193,7 +218,7 @@ resource Resources::Bitmap BackgroundMain1
   attr bitmapmode Mode = Default;
 }
 
-$rect <70,190,270,230>
+$rect <70,240,270,280>
 $output false
 class Menu : Core::Group
 {
@@ -244,22 +269,22 @@ class Menu : Core::Group
     preset Appearance = WidgetSet::PushButton_Small;
   }
 
-  $rect <510,10,710,50>
+  $rect <590,170,790,210>
   slot Press1
   {
     postsignal OnPress1;
   }
 
-  $rect <510,-40,710,0>
+  $rect <590,130,790,170>
   property slot OnPress1 = null;
 
-  $rect <510,140,710,180>
+  $rect <590,250,790,290>
   slot Press2
   {
     postsignal OnPress2;
   }
 
-  $rect <510,90,710,130>
+  $rect <590,210,790,250>
   property slot OnPress2 = null;
 
   $rect <20,20,160,60>
@@ -270,9 +295,15 @@ class Menu : Core::Group
     preset Label = "Cumpara";
     preset Appearance = WidgetSet::PushButton_Small;
   }
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <580,90,800,290>;
+  }
 }
 
-$rect <70,240,270,280>
+$rect <70,190,270,230>
 $output false
 class WelcomeScreen : Core::Group
 {
@@ -296,7 +327,7 @@ class WelcomeScreen : Core::Group
     preset OnPress = onButton;
   }
 
-  $rect <519,100,719,140>
+  $rect <519,60,719,100>
   slot onButton
   {
     postsignal OnShow;
@@ -304,6 +335,12 @@ class WelcomeScreen : Core::Group
 
   $rect <520,20,720,60>
   property slot OnShow = null;
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <510,-30,730,170>;
+  }
 }
 
 $rect <340,240,540,280>
@@ -412,22 +449,22 @@ class Menu2 : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::PushButton PushButton
   {
-    preset Bounds = <231,0,297,41>;
+    preset Bounds = <347,0,413,41>;
     preset OnPress = Press2;
     preset Label = "Deserte";
     preset Appearance = WidgetSet::PushButton_Small;
   }
 
-  $rect <519,39,719,79>
+  $rect <510,40,710,80>
   property slot OnPress2 = null;
 
-  $rect <519,180,719,220>
+  $rect <510,160,710,200>
   slot Press3
   {
     postsignal OnPress3;
   }
 
-  $rect <528,139,728,179>
+  $rect <510,120,710,160>
   property slot OnPress3 = null;
 
   $rect <20,20,160,60>
@@ -438,6 +475,31 @@ class Menu2 : Core::Group
     preset Label = "Cumpara";
     preset Appearance = WidgetSet::PushButton_Small;
   }
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <500,10,720,210>;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler OnTouchEnlarge
+  {
+    preset Point4 = <210,30>;
+    preset Point3 = <340,30>;
+    preset Point2 = <340,120>;
+    preset Point1 = <210,120>;
+    preset OnPress = Press4;
+  }
+
+  $rect <520,280,720,320>
+  slot Press4
+  {
+    postsignal OnPress4;
+  }
+
+  $rect <520,240,720,280>
+  property slot OnPress4 = null;
 }
 
 $rect <620,199,860,239>
@@ -458,7 +520,7 @@ class BuyScreen : Core::Group
     preset Bitmap = Application::BackgroundMain1;
   }
 
-  $rect <510,80,710,120>
+  $rect <520,80,720,120>
   slot Press
   {
     postsignal OnPress;
@@ -475,4 +537,51 @@ class BuyScreen : Core::Group
     preset Label = "Back";
     preset Appearance = WidgetSet::PushButton_Medium;
   }
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <510,-30,730,170>;
+  }
+}
+
+$rect <70,390,270,430>
+$output false
+class EnlargedScreen : Core::Group
+{
+  $rect <10,280,210,320>
+  inherited property Bounds = <0,0,347,240>;
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <0,0,230,240>;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <240,204,347,240>;
+    preset OnPress = Press3;
+    preset Label = "Caption";
+    preset Appearance = WidgetSet::PushButton_Medium;
+  }
+
+  $rect <420,70,620,110>
+  slot Press2
+  {
+    postsignal OnPress2;
+  }
+
+  $rect <420,30,620,70>
+  property slot OnPress2 = null;
+
+  $rect <420,160,620,200>
+  slot Press3
+  {
+    postsignal OnPress3;
+  }
+
+  $rect <420,120,620,160>
+  property slot OnPress3 = null;
 }
