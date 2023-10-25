@@ -8,7 +8,9 @@ Proiectu cu restaurant , interfata meniu
   # Developer Middleware : Solomon Vlad ,Brumariu Cosmin
   # Tester :Bordean Robert ,Solomon Vlad
   # Designer :Brumariu Cosmin , Bordean Robert ,Solomon Vlad
-
+  #### DragonSlayer1355 ,brumariucosmin (sunt conturile lui Cosmin , nu am idee de ce cand incarc imi apare DragonSlayer chiar daca mi-am schimbat numele la brumariucosmin)
+  #### KFN31(este contul lui Robert)
+  #### Vlad25042001(este contul lui Vlad)
 ### Raport Saptamanal
 
 #### Saptamana 2
