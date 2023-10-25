@@ -26,8 +26,8 @@ Proiectu cu restaurant , interfata meniu
   -Vlad a testat elementele realizate <br>
   -Cosmin a mai adaugat elemente pentru GUI. 
 
-#### Saptamana 3
-  -Am adaugat documentatia cu specificatiile , vom updata documentul pe parcursul dezvoltari proiectului
+#### Saptamana 4
+  -Am adaugat documentatia cu specificatiile realizata de toti 3 dupa o intalnire pe discord, vom updata documentul pe parcursul dezvoltari proiectului
 
   
 
