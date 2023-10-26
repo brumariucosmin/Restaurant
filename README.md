@@ -15,16 +15,16 @@ Proiectu cu restaurant , interfata meniu
 
 #### Saptamana 2
 
-  -Am ales membri echipei, rolurile si am decis tema proiecteului <br>
+  -Am ales membri echipei, rolurile si am decis tema proiectului <br>
   -Cosmin a realizat prima idee pentru cum ar trebui sa arate meniul <br>
   -Sa discutat in general la cum ar dori sa arata design-ul final , cum ar functiona proiectul intr-o situatie reala
 
 #### Saptamana 3
 
-  -Am realizat o conversatie pe Discord , unde am vorbit din nou despre design si cum ar trebui sa funcionteaze interfata. <br>
+  -Am realizat o conversatie pe Discord , unde am vorbit din nou despre design si cum ar trebui sa functioneze interfata. <br>
   -Robert a adaugat elemente la design-ul pentru WelcomScreen <br>
   -Vlad a testat elementele realizate <br>
-  -Cosmin a mai adaugat elemente pentru GUI. 
+  -Cosmin a mai adaugat elemente pentru GUI 
 
 #### Saptamana 4
   -Am adaugat documentatia cu specificatiile realizata de toti 3 dupa o intalnire pe discord, vom updata documentul pe parcursul dezvoltari proiectului
