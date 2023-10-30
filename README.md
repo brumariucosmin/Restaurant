@@ -30,7 +30,9 @@ Proiectu cu restaurant , interfata meniu
   -Am adaugat documentatia cu specificatiile realizata de toti 3 dupa o intalnire pe discord, vom updata documentul pe parcursul dezvoltari proiectului <br>
   -Robert a mai adaugat elemente pentru design <br>
   -Vlad a mai modificat specificatile , a adaugat un power point + a testat componentele <br>
-  -Cosmin a mai adaugat elemente pentru GUI
+  -Cosmin a mai adaugat elemente pentru GUI <br>
+  -Un gif realizat de Cosmin pentru a ii ajuta pe colegi cu incarcatul pe git <br>
+  ![ezgif com-gif-maker](https://github.com/etc-sea/Restaurant/assets/106124168/512f4f66-adfd-44be-b8a9-fff2f294ec80)
 
   
 
