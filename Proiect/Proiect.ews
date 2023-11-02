@@ -1,12 +1,12 @@
 $version 1.0
 
-attr active = Application;
+attr active = Application::SoupMenu;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Application::Menu.Press1;
-attr codeSelEnd = <0,0>;
-attr codeSelStart = <0,0>;
+attr codeInspector = Application::SoupMenu.onTap;
+attr codeSelEnd = <21,4>;
+attr codeSelStart = <21,4>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -46,72 +46,54 @@ view unit Application
   attr enableGrid = true;
   attr enableWireMode = false;
   attr grid = 10;
-  attr scrollTo = <-7,64>;
+  attr scrollTo = <362,132>;
   attr zoom = 0.75;
-}
-
-view class Application::BuyScreen
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-55>;
-  attr zoom = 1.0;
-}
-
-view class Application::Menu
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = Press1;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-103>;
-  attr zoom = 1.0;
-}
-
-view class Application::WelcomeScreen
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeSelEnd = <26,2>;
-  attr codeSelStart = <26,2>;
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-103>;
-  attr zoom = 1.0;
 }
 
 view class Application::Application
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = onPress3;
-  attr codeSelEnd = <21,9>;
-  attr codeSelStart = <21,9>;
+  attr codeInspector = onPressMainScreen;
+  attr codeSelEnd = <0,2>;
+  attr codeSelStart = <0,2>;
   attr enableWireMode = false;
-  attr scrollTo = <-7,41>;
+  attr scrollTo = <-7,185>;
   attr zoom = 1.0;
 }
 
-view class Application::Menu2
+view class Application::SoupMenu
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = Press4;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
+  attr codeInspector = onTap;
+  attr codeSelEnd = <21,4>;
+  attr codeSelStart = <21,4>;
   attr enableWireMode = false;
-  attr scrollTo = <-7,41>;
+  attr scrollTo = <-7,233>;
   attr zoom = 1.0;
 }
 
-view class Application::EnlargedScreen
+view class Application::BuyScreen
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = Press1;
+  attr codeInspector = OnLoadItem;
+  attr codeSelEnd = <0,3>;
+  attr codeSelStart = <0,3>;
+  attr enableWireMode = false;
+  attr scrollTo = <-201,-102>;
+  attr zoom = 1.0;
+}
+
+view class Application::BuyScreenElement
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,42>;
+  attr codeInspector = UpdateViewState;
   attr codeSelEnd = <0,0>;
   attr codeSelStart = <0,0>;
   attr enableWireMode = false;
-  attr scrollTo = <-7,-103>;
+  attr scrollTo = <-182,-7>;
   attr zoom = 1.0;
 }

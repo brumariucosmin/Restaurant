@@ -8,30 +8,6 @@ class Application : Core::Root
   $rect <500,10,700,50>
   inherited property Bounds = <0,0,480,272>;
 
-  // To do:
-  // 
-  // - Adjust the visible size of your application (the thick blue border). It should \
-  // correspond to the size of your target display.
-  // 
-  // - The simplest way to compose the appearance of the application is to use the \
-  // 'Views' and 'Widgets' from the Gallery.
-  // 
-  // - To react to touch or keyboard events use the templates from the Gallery folder \
-  // 'Event Handlers'.
-  // 
-  // - To perform transitions (animations) use the templates from the Gallery folder \
-  // 'Effects'.
-  // 
-  // - To store values use the 'Variable', 'Array' and 'Property' templates available \
-  // in the Gallery folder 'Chora'.
-  // 
-  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
-  // in the Gallery folder 'Chora'.
-  note legend Note1
-  {
-    attr Bounds = <190,410,970,640>;
-  }
-
   $rect <20,20,160,60>
   object Views::Rectangle Rectangle
   {
@@ -45,12 +21,12 @@ class Application : Core::Root
     preset Bounds = <99,105,381,166>;
     preset WrapText = true;
     preset String = "Welcome to\nEmbedded Wizard!";
-    preset Font = Application::Font;
+    preset Font = Resources::DefaultFont;
     preset Color = #FFFFFFFF;
   }
 
   $rect <20,20,160,60>
-  object Application::Menu Menu
+  object Application::MainScreen Menu
   {
     preset Bounds = <0,-1,480,271>;
   }
@@ -72,85 +48,115 @@ class Application : Core::Root
 
     // Configure the dialog before presenting it. In particular connect slot
     // methods to receive events when the user has pressed a button in the dialog.
-    dialog.OnShow = onShow;
+    dialog.OnShow = onPressMainScreen;
 
     // Present the Dialog now.
-    PresentDialog( dialog, null, null, null, null, null, null, null, null, false );
+    SwitchToDialog( dialog, null, null, null, null, null, null, null, null,null, true );
   }
 
   $rect <20,20,160,60>
-  object Application::Menu2 Menu2
+  object Application::SoupMenu Menu2
   {
     preset Bounds = <0,-1,480,271>;
   }
 
   $rect <580,210,780,250>
-  slot onShow
+  slot onPressMainScreen
   {
     // Create a new instance of the alert Dialog
-    var Application::Menu alert = new Application::Menu;
+    var Application::MainScreen alert = new Application::MainScreen;
 
     // Configure the alert before presenting it. In particular connect slot
     // methods to receive events when the user has pressed a button in the alert.
-           alert.OnPress1 = onPress1;
-           alert.OnPress2 = onPress2;
+           alert.onShow1 = onPressSoupScreen;
+           alert.onShow2 = onPressBuyScreen;
+           alert.onShow3 = onPressDrinksScreen;
+           alert.onShow4 = onPressMainMenu;
+           alert.onShow5 = onPressDesertScreen;
 
     // Present the alert Dialog now.
-    PresentDialog( alert, null, null, null, null, null, null, null, null, false );
+    SwitchToDialog( alert, null, null, null, null, null, null, null, null,null, true );
   }
 
   $rect <580,250,780,290>
-  slot onPress1
+  slot onPressSoupScreen
   {
     // Create a new instance of the alert Dialog
 
-    var Application::Menu2 alert = new Application::Menu2;
+    var Application::SoupMenu alert = new Application::SoupMenu;
 
     // Configure the alert before presenting it. In particular connect slot
     // methods to receive events when the user has pressed a button in the alert.
-    alert.OnPress2 = onShow;
-    alert.OnPress3 = onPress2;
-    alert.OnPress4 = onPress3;
-
+    alert.onShow = onPressMainScreen;
+    alert.onShow2 = onPressBuyScreen;
 
     // Present the alert Dialog now.
-    PresentDialog( alert, null, null, null, null, null, null, null, null, false );
+    SwitchToDialog( alert, null, null, null, null, null, null, null, null,null, true );
   }
 
   $rect <580,290,780,330>
-  slot onPress2
+  slot onPressBuyScreen
   {
     // Create a new instance of the alert Dialog
     var Application::BuyScreen alert = new Application::BuyScreen;
 
     // Configure the alert before presenting it. In particular connect slot
     // methods to receive events when the user has pressed a button in the alert.
-    alert.OnPress = onShow;
-
+    alert.OnPress = onPressMainScreen;
 
     // Present the alert Dialog now.
-    PresentDialog( alert, null, null, null, null, null, null, null, null, false );
+    SwitchToDialog( alert, null, null, null, null, null, null, null, null,null, true );
   }
 
   // Tranziti pagini
   note group Note
   {
-    attr Bounds = <570,130,790,390>;
+    attr Bounds = <570,130,790,460>;
   }
 
   $rect <580,330,780,370>
-  slot onPress3
+  slot onPressDrinksScreen
   {
     // Create a new instance of the alert Dialog
-    var Application::EnlargedScreen alert1 = new Application::EnlargedScreen;
+    var Application::DrinksMenu drink = new Application::DrinksMenu;
 
     // Configure the alert before presenting it. In particular connect slot
     // methods to receive events when the user has pressed a button in the alert.
-    alert1.OnPress1 = onShow;
-
+    drink.onShow = onPressMainScreen;
+    drink.onShow2 = onPressBuyScreen;
 
     // Present the alert Dialog now.
-    PresentDialog( alert1, null, null, null, null, null, null, null, null, false );
+    SwitchToDialog( drink, null, null, null, null, null, null, null, null,null, true );
+  }
+
+  $rect <580,370,780,410>
+  slot onPressMainMenu
+  {
+    // Create a new instance of the alert Dialog
+    var Application::MainMenu menu = new Application::MainMenu;
+
+    // Configure the alert before presenting it. In particular connect slot
+    // methods to receive events when the user has pressed a button in the alert.
+    menu.onShow = onPressMainScreen;
+    menu.onShow2 = onPressBuyScreen;
+
+    // Present the alert Dialog now.
+    SwitchToDialog( menu, null, null, null, null, null, null, null, null,null, true );
+  }
+
+  $rect <580,410,780,450>
+  slot onPressDesertScreen
+  {
+    // Create a new instance of the alert Dialog
+    var Application::DesertMenu menu = new Application::DesertMenu;
+
+    // Configure the alert before presenting it. In particular connect slot
+    // methods to receive events when the user has pressed a button in the alert.
+    menu.onShow = onPressMainScreen;
+    menu.onShow2 = onPressBuyScreen;
+
+    // Present the alert Dialog now.
+    SwitchToDialog( menu, null, null, null, null, null, null, null, null,null, true );
   }
 
   // Directives to adapt the order of the above members according to how these members 
@@ -159,58 +165,43 @@ class Application : Core::Root
   // project files is simplified.
   $member Init
   $member Bounds
-  $member Note1
   $member Rectangle
   $member Text
   $member Menu2
   $member Menu
   $member WelcomeScreen
-  $member onShow
-  $member onPress1
-  $member onPress2
+  $member onPressMainScreen
+  $member onPressSoupScreen
+  $member onPressBuyScreen
   $member Note
-  $member onPress3
-}
-
-$rect <340,140,540,180>
-$output false
-resource Resources::Font Font
-{
-  attr fontname FontName = Roboto;
-  attr fontheight Height = 22;
-  attr fontheightmode HeightMode = Popular;
-  attr fontquality Quality = High;
-  attr fontranges Ranges = 0x20-0xFF;
-  attr fontaspectratio AspectRatio = 1.0;
-  attr fontbold Bold = false;
-  attr fontitalic Italic = false;
-  attr fontkerning Kerning = true;
-  attr fontrowdistance RowDistance;
+  $member onPressDrinksScreen
+  $member onPressMainMenu
+  $member onPressDesertScreen
 }
 
 // Componente&Clase
 note group Note2
 {
-  attr Bounds = <50,100,290,530>;
+  attr Bounds = <50,110,290,540>;
 }
 
 // Resurse
 note group Note3
 {
-  attr Bounds = <320,100,560,560>;
+  attr Bounds = <320,110,560,540>;
 }
 
 // Configurati obiecte
 note group Note4
 {
-  attr Bounds = <610,100,870,420>;
+  attr Bounds = <610,110,870,430>;
 }
 
-$rect <340,190,540,230>
+$rect <340,150,540,190>
 $output false
-resource Resources::Bitmap BackgroundMain1
+resource Resources::Bitmap mainScreen
 {
-  attr bitmapfile FileName = .\Background.png;
+  attr bitmapfile FileName = .\Pag principala menu.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -220,87 +211,160 @@ resource Resources::Bitmap BackgroundMain1
 
 $rect <70,240,270,280>
 $output false
-class Menu : Core::Group
+class MainScreen : Core::Group
 {
   $rect <10,300,210,340>
   inherited property Bounds = <0,0,480,272>;
 
-  $rect <20,20,160,60>
-  object Views::Image Background
+  $rect <500,80,700,120>
+  slot onMainScreen
   {
-    preset Bounds = <0,0,480,272>;
-    preset Bitmap = Application::BackgroundMain1;
+    postsignal onShow;
   }
 
-  $rect <20,20,160,60>
-  object Views::Image Image1
+  $rect <500,40,700,80>
+  property slot onShow = null;
+
+  $rect <500,160,700,200>
+  slot onBuyScreen
   {
-    preset Bounds = <45,30,175,120>;
-    preset Bitmap = Application::Mancare1;
+    postsignal onShow2;
   }
 
-  $rect <20,20,160,60>
-  object Views::Image Image2
-  {
-    preset Bounds = <210,30,340,120>;
-    preset Bitmap = Application::Mancare2;
-  }
-
-  $rect <20,20,160,60>
-  object Views::Image Image3
-  {
-    preset Bounds = <63,136,193,226>;
-    preset Bitmap = Application::Mancare3;
-  }
-
-  $rect <20,20,160,60>
-  object Views::Image Image4
-  {
-    preset Bounds = <231,136,361,226>;
-    preset Bitmap = Application::Mancare4;
-  }
-
-  $rect <20,20,160,60>
-  object WidgetSet::PushButton PushButton
-  {
-    preset Bounds = <231,0,297,41>;
-    preset OnPress = Press1;
-    preset Label = "Aperitive";
-    preset Appearance = WidgetSet::PushButton_Small;
-  }
-
-  $rect <590,170,790,210>
-  slot Press1
-  {
-    postsignal OnPress1;
-  }
-
-  $rect <590,130,790,170>
-  property slot OnPress1 = null;
-
-  $rect <590,250,790,290>
-  slot Press2
-  {
-    postsignal OnPress2;
-  }
-
-  $rect <590,210,790,250>
-  property slot OnPress2 = null;
-
-  $rect <20,20,160,60>
-  object WidgetSet::PushButton PushButton1
-  {
-    preset Bounds = <380,226,446,267>;
-    preset OnPress = Press2;
-    preset Label = "Cumpara";
-    preset Appearance = WidgetSet::PushButton_Small;
-  }
+  $rect <500,120,700,160>
+  property slot onShow2 = null;
 
   // Tranziti pagini
   note group Note
   {
-    attr Bounds = <580,90,800,290>;
+    attr Bounds = <490,0,900,300>;
   }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::mainScreen;
+  }
+
+  $rect <700,80,900,120>
+  slot onSoupMenu
+  {
+    postsignal onShow1;
+  }
+
+  $rect <700,40,900,80>
+  property slot onShow1 = null;
+
+  $rect <700,160,900,200>
+  slot onDrinksMenu
+  {
+    postsignal onShow3;
+  }
+
+  $rect <700,120,900,160>
+  property slot onShow3 = null;
+
+  $rect <500,240,700,280>
+  slot onMainMenu
+  {
+    postsignal onShow4;
+  }
+
+  $rect <500,200,700,240>
+  property slot onShow4 = null;
+
+  $rect <700,240,900,280>
+  slot onDesertMenu
+  {
+    postsignal onShow5;
+  }
+
+  $rect <700,200,900,240>
+  property slot onShow5 = null;
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SoupTouchHandler
+  {
+    preset Point4 = <76,18>;
+    preset Point3 = <219,18>;
+    preset Point2 = <219,118>;
+    preset Point1 = <76,118>;
+    preset OnPress = onSoupMenu;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler DrinksTouchHandler
+  {
+    preset Point4 = <266,18>;
+    preset Point3 = <412,18>;
+    preset Point2 = <412,118>;
+    preset Point1 = <266,118>;
+    preset OnPress = onDrinksMenu;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler MenuTouchHandler
+  {
+    preset Point4 = <76,160>;
+    preset Point3 = <219,160>;
+    preset Point2 = <219,260>;
+    preset Point1 = <76,260>;
+    preset OnPress = onMainMenu;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler DesertTouchHandler
+  {
+    preset Point4 = <266,160>;
+    preset Point3 = <412,160>;
+    preset Point2 = <412,260>;
+    preset Point1 = <266,260>;
+    preset OnPress = onDesertMenu;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image returnButton1
+  {
+    preset Bounds = <431,127,481,242>;
+    preset Bitmap = Application::BuyButton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler2
+  {
+    preset Point4 = <430,136>;
+    preset Point3 = <480,136>;
+    preset Point2 = <480,248>;
+    preset Point1 = <430,248>;
+    preset OnPress = onBuyScreen;
+  }
+
+  // Directives to adapt the order of the above members according to how these members 
+  // where arranged when the project content was stored. In this manner the storage 
+  // and the expected order of the members don't depend. Merging of changes in the 
+  // project files is simplified.
+  $member Bounds
+  $member Image
+  $member onMainScreen
+  $member onShow
+  $member onBuyScreen
+  $member onShow2
+  $member Note
+  $member onSoupMenu
+  $member onShow1
+  $member onDrinksMenu
+  $member onShow3
+  $member onMainMenu
+  $member onShow4
+  $member onDesertMenu
+  $member onShow5
+  $member SoupTouchHandler
+  $member DrinksTouchHandler
+  $member MenuTouchHandler
+  $member DesertTouchHandler
+  $member returnButton1
+  $member SimpleTouchHandler2
 }
 
 $rect <70,190,270,230>
@@ -324,11 +388,11 @@ class WelcomeScreen : Core::Group
     preset Point3 = <480,0>;
     preset Point2 = <480,272>;
     preset Point1 = <0,272>;
-    preset OnPress = onButton;
+    preset OnPress = onWelcomeScreen;
   }
 
   $rect <519,60,719,100>
-  slot onButton
+  slot onWelcomeScreen
   {
     postsignal OnShow;
   }
@@ -343,11 +407,11 @@ class WelcomeScreen : Core::Group
   }
 }
 
-$rect <340,240,540,280>
+$rect <340,199,540,239>
 $output false
-resource Resources::Bitmap Mancare1
+resource Resources::Bitmap Soup
 {
-  attr bitmapfile FileName = .\Mancare1.png;
+  attr bitmapfile FileName = .\Meniu supe.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -355,11 +419,11 @@ resource Resources::Bitmap Mancare1
   attr bitmapmode Mode = Default;
 }
 
-$rect <340,290,540,330>
+$rect <340,249,540,289>
 $output false
-resource Resources::Bitmap Mancare2
+resource Resources::Bitmap Desert
 {
-  attr bitmapfile FileName = .\Mancare2.png;
+  attr bitmapfile FileName = .\Desert.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -367,11 +431,11 @@ resource Resources::Bitmap Mancare2
   attr bitmapmode Mode = Default;
 }
 
-$rect <340,340,540,380>
+$rect <340,299,540,339>
 $output false
-resource Resources::Bitmap Mancare3
+resource Resources::Bitmap Drinks
 {
-  attr bitmapfile FileName = .\Mancare3.png;
+  attr bitmapfile FileName = .\bauturi.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -379,11 +443,11 @@ resource Resources::Bitmap Mancare3
   attr bitmapmode Mode = Default;
 }
 
-$rect <340,390,540,430>
+$rect <340,349,540,389>
 $output false
-resource Resources::Bitmap Mancare4
+resource Resources::Bitmap Menu
 {
-  attr bitmapfile FileName = .\Mancare4.png;
+  attr bitmapfile FileName = .\Menu principal.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -391,11 +455,11 @@ resource Resources::Bitmap Mancare4
   attr bitmapmode Mode = Default;
 }
 
-$rect <340,439,540,479>
+$rect <340,398,540,438>
 $output false
 resource Resources::Bitmap BuyButton
 {
-  attr bitmapfile FileName = .\Buy.png;
+  attr bitmapfile FileName = .\shop_now.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -403,7 +467,7 @@ resource Resources::Bitmap BuyButton
   attr bitmapmode Mode = Default;
 }
 
-$rect <340,490,540,530>
+$rect <340,449,540,489>
 $output false
 resource Resources::Bitmap BackgroundWelcomeScreen
 {
@@ -415,96 +479,194 @@ resource Resources::Bitmap BackgroundWelcomeScreen
   attr bitmapmode Mode = Default;
 }
 
-$rect <610,140,860,180>
-$output false
-autoobject Effects::FadeInOutTransition FadeInOutTransition;
-
 $rect <70,290,270,330>
 $output false
-class Menu2 : Core::Group
+class SoupMenu : Core::Group
 {
   $rect <10,300,210,340>
   inherited property Bounds = <0,0,480,272>;
 
   $rect <20,20,160,60>
-  object Views::Image Background
+  object Views::Image Soup
   {
     preset Bounds = <0,0,480,272>;
-    preset Bitmap = Application::BackgroundMain1;
-  }
-
-  $rect <20,20,160,60>
-  object Views::Image Image2
-  {
-    preset Bounds = <210,30,340,120>;
-    preset Bitmap = Application::Mancare2;
+    preset Bitmap = Application::Soup;
   }
 
   $rect <510,80,710,120>
-  slot Press2
+  slot onMenu1
   {
-    postsignal OnPress2;
-  }
-
-  $rect <20,20,160,60>
-  object WidgetSet::PushButton PushButton
-  {
-    preset Bounds = <347,0,413,41>;
-    preset OnPress = Press2;
-    preset Label = "Deserte";
-    preset Appearance = WidgetSet::PushButton_Small;
+    postsignal onShow;
   }
 
   $rect <510,40,710,80>
-  property slot OnPress2 = null;
+  property slot onShow = null;
 
   $rect <510,160,710,200>
-  slot Press3
+  slot onBuyScreen
   {
-    postsignal OnPress3;
+    postsignal onShow2;
   }
 
   $rect <510,120,710,160>
-  property slot OnPress3 = null;
-
-  $rect <20,20,160,60>
-  object WidgetSet::PushButton PushButton1
-  {
-    preset Bounds = <380,226,446,267>;
-    preset OnPress = Press3;
-    preset Label = "Cumpara";
-    preset Appearance = WidgetSet::PushButton_Small;
-  }
+  property slot onShow2 = null;
 
   // Tranziti pagini
   note group Note
   {
-    attr Bounds = <500,10,720,210>;
+    attr Bounds = <500,10,730,210>;
+  }
+
+  // Buy Menu
+  note group Note1
+  {
+    attr Bounds = <410,300,850,500>;
   }
 
   $rect <20,20,160,60>
-  object Core::SimpleTouchHandler OnTouchEnlarge
+  object Views::Image returnButton
   {
-    preset Point4 = <210,30>;
-    preset Point3 = <340,30>;
-    preset Point2 = <340,120>;
-    preset Point1 = <210,120>;
-    preset OnPress = Press4;
+    preset Bounds = <431,0,481,115>;
+    preset Bitmap = Application::returnbutton;
   }
 
-  $rect <520,280,720,320>
-  slot Press4
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler BuyTouchHandler
   {
-    postsignal OnPress4;
+    preset Point4 = <430,3>;
+    preset Point3 = <480,3>;
+    preset Point2 = <480,115>;
+    preset Point1 = <430,115>;
+    preset OnPress = onMenu1;
   }
 
-  $rect <520,240,720,280>
-  property slot OnPress4 = null;
+  $rect <20,20,160,60>
+  object Views::Image returnButton1
+  {
+    preset Bounds = <431,127,481,242>;
+    preset Bitmap = Application::BuyButton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler ReturnTouchHandler
+  {
+    preset Point4 = <431,130>;
+    preset Point3 = <481,130>;
+    preset Point2 = <481,242>;
+    preset Point1 = <431,242>;
+    preset OnPress = onBuyScreen;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SoupNo1TouchHandler
+  {
+    preset Point4 = <99,4>;
+    preset Point3 = <261,4>;
+    preset Point2 = <261,130>;
+    preset Point1 = <99,130>;
+    preset OnPress = onTap;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SoupNo2TouchHandler
+  {
+    preset Point4 = <99,136>;
+    preset Point3 = <261,136>;
+    preset Point2 = <261,272>;
+    preset Point1 = <99,272>;
+    preset OnPress = onTap1;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SoupNo3TouchHandler
+  {
+    preset Point4 = <261,136>;
+    preset Point3 = <423,136>;
+    preset Point2 = <423,262>;
+    preset Point1 = <261,262>;
+    preset OnPress = onTap2;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SoupNo4TouchHandler
+  {
+    preset Point4 = <269,1>;
+    preset Point3 = <431,1>;
+    preset Point2 = <431,127>;
+    preset Point1 = <269,127>;
+    preset OnRelease = onTap;
+    preset OnPress = onTap3;
+  }
+
+  // This is a slot method.
+  $rect <630,340,830,380>
+  slot onTap
+  {
+
+    if ( SoupNo1TouchHandler.Inside )
+    {
+        TapNo = TapNo + 1;
+         trace "tapuri", TapNo;
+       
+    }
+
+
+  }
+
+  // This is a slot method.
+  $rect <630,380,830,420>
+  slot onTap1
+  {
+    if ( SoupNo2TouchHandler.Inside )
+    {
+         TapNo1 = TapNo1 + 1;
+         trace "tapuri1", TapNo1;
+       
+    }
+
+
+  }
+
+  // This is a slot method.
+  $rect <630,420,830,460>
+  slot onTap2
+  {
+    if ( SoupNo3TouchHandler.Inside )
+    {
+         TapNo2 = TapNo2 + 1;
+         trace "tapuri2", TapNo2;
+       
+    }
+
+
+  }
+
+  // This is a slot method.
+  $rect <630,460,830,500>
+  slot onTap3
+  {
+    if ( SoupNo4TouchHandler.Inside )
+    {
+         TapNo3 = TapNo3 + 1;
+         trace "tapuri3", TapNo3;
+       
+    }
+
+
+  }
+
+  $rect <420,380,620,420>
+  var int32 TapNo1;
+
+  $rect <420,460,620,500>
+  var int32 TapNo2;
+
+  $rect <420,420,620,460>
+  var int32 TapNo3;
+
+  $rect <420,340,620,380>
+  var int32 TapNo;
 }
-
-$rect <620,199,860,239>
-$output false
-autoobject WidgetSet::PushButtonConfig PushButtonConfig;
 
 $rect <70,340,270,380>
 $output false
@@ -512,13 +674,6 @@ class BuyScreen : Core::Group
 {
   $rect <10,300,210,340>
   inherited property Bounds = <0,0,480,272>;
-
-  $rect <20,20,160,60>
-  object Views::Image Background
-  {
-    preset Bounds = <0,0,480,272>;
-    preset Bitmap = Application::BackgroundMain1;
-  }
 
   $rect <520,80,720,120>
   slot Press
@@ -529,50 +684,1247 @@ class BuyScreen : Core::Group
   $rect <519,39,719,79>
   property slot OnPress = null;
 
-  $rect <20,20,160,60>
-  object WidgetSet::PushButton PushButton
-  {
-    preset Bounds = <366,222,480,272>;
-    preset OnPress = Press;
-    preset Label = "Back";
-    preset Appearance = WidgetSet::PushButton_Medium;
-  }
-
   // Tranziti pagini
   note group Note
   {
-    attr Bounds = <510,-30,730,170>;
+    attr Bounds = <510,0,730,200>;
   }
+
+  // This method is called by 'VerticalList' every time the list loads or updates \
+  // an item.
+  $rect <160,500,350,540>
+  slot OnLoadItem
+  {
+    // Get the number of the item to load.
+
+    var int32 itemNo = HorizontalList.Item;
+
+    var Application::BuyScreenElement itemView = (Application::BuyScreenElement)HorizontalList.View;
+
+    if ( itemView == null )
+      return;
+         
+    itemView.MyImage = Your_DataBase_Item_Title[itemNo];
+    itemView.Price = Your_DataBase_Item_Price[itemNo];
+
+                         
+    itemView.Bounds.size = HorizontalList.ViewSize;
+
+  }
+
+  // Simple storage for the item data
+  note group Note2
+  {
+    attr Bounds = <440,370,750,590>;
+  }
+
+  $rect <160,420,360,460>
+  slot OnQueryItemClass
+  {
+    // Get the number of the item to query its class.
+    var int32 itemNo = HorizontalList.Item;
+
+    // Estimate the class of the item and store it in the list.
+    HorizontalList.QueriedItemClass = Your_DataBase_Item_Class[ itemNo ];
+  }
+
+  $rect <160,460,360,500>
+  slot OnQueryItemWidth
+  {
+    // Get the number of the item to query its class.
+    var int32 itemNo = HorizontalList.Item;
+
+    // Estimate the height  of the item and store it in the list.
+    HorizontalList.QueriedItemWidth = Your_DataBase_Item_Height[ itemNo ];
+  }
+
+  $rect <460,420,730,460>
+  array class Your_DataBase_Item_Class[ 16 ] =
+  (
+    Default[0] = Application::BuyScreenElement;
+    Default[1] = Application::BuyScreenElement;
+    Default[2] = Application::BuyScreenElement;
+    Default[3] = Application::BuyScreenElement;
+    Default[4] = Application::BuyScreenElement;
+    Default[5] = Application::BuyScreenElement;
+    Default[6] = Application::BuyScreenElement;
+    Default[7] = Application::BuyScreenElement;
+    Default[8] = Application::BuyScreenElement;
+    Default[9] = Application::BuyScreenElement;
+    Default[10] = Application::BuyScreenElement;
+    Default[11] = Application::BuyScreenElement;
+    Default[12] = Application::BuyScreenElement;
+    Default[13] = Application::BuyScreenElement;
+    Default[14] = Application::BuyScreenElement;
+    Default[15] = Application::BuyScreenElement;
+  );
+
+  $rect <460,460,730,500>
+  array int32 Your_DataBase_Item_Height[ 16 ] =
+  (
+    Default[0] = 80;
+    Default[1] = 80;
+    Default[2] = 80;
+    Default[3] = 80;
+    Default[4] = 80;
+    Default[5] = 80;
+    Default[6] = 80;
+    Default[7] = 80;
+    Default[8] = 80;
+    Default[9] = 80;
+    Default[10] = 80;
+    Default[11] = 80;
+    Default[12] = 80;
+    Default[13] = 80;
+    Default[14] = 80;
+    Default[15] = 80;
+  );
+
+  $rect <460,500,730,540>
+  array Resources::Bitmap Your_DataBase_Item_Title[ 16 ] =
+  (
+    Default[0] = Application::Soup1;
+    Default[1] = Application::Soup2;
+    Default[2] = Application::Soup3;
+    Default[3] = Application::Soup4;
+    Default[4] = Application::Desert1;
+    Default[5] = Application::Desert2;
+    Default[6] = Application::Desert3;
+    Default[7] = Application::Desert4;
+    Default[8] = Application::Drinks1;
+    Default[9] = Application::Drinks2;
+    Default[10] = Application::Drinks3;
+    Default[11] = Application::Drinks4;
+    Default[12] = Application::Menu1;
+    Default[13] = Application::Menu2;
+    Default[14] = Application::Menu3;
+    Default[15] = Application::Menu4;
+  );
+
+  // This is a vertical list component.
+  $rect <20,20,160,60>
+  object Core::HorizontalList HorizontalList
+  {
+    preset Bounds = <0,0,430,272>;
+    preset OnQueryItemClass = OnQueryItemClass;
+    preset OnQueryItemWidth = OnQueryItemWidth;
+    preset OnLoadItem = OnLoadItem;
+    preset SlideHandler = SlideTouchHandler;
+    preset NoOfItems = 16;
+  }
+
+  // This is a slide gesture handler.
+  $rect <20,20,160,60>
+  object Core::SlideTouchHandler SlideTouchHandler
+  {
+    preset Bounds = <0,0,430,272>;
+    preset SlideHorz = true;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <430,153,480,268>;
+    preset Bitmap = Application::BuyButton;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image background
+  {
+    preset Bounds = <-3,-9,480,272>;
+    preset Bitmap = Application::Bitmap;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <430,156>;
+    preset Point3 = <480,156>;
+    preset Point2 = <480,268>;
+    preset Point1 = <430,268>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image1
+  {
+    preset Bounds = <430,0,480,115>;
+    preset Bitmap = Application::returnbutton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler1
+  {
+    preset Point4 = <430,3>;
+    preset Point3 = <480,3>;
+    preset Point2 = <480,115>;
+    preset Point1 = <430,115>;
+    preset OnPress = Press;
+  }
+
+  $rect <460,540,730,580>
+  array string Your_DataBase_Item_Price[ 16 ] =
+  (
+    Default[0] = 20;
+    Default[1] = 20;
+    Default[2] = 20;
+    Default[3] = 20;
+    Default[4] = 20;
+    Default[5] = 20;
+    Default[6] = 20;
+    Default[7] = 20;
+    Default[8] = 20;
+    Default[9] = 20;
+    Default[10] = 20;
+    Default[11] = 20;
+    Default[12] = 20;
+    Default[13] = 20;
+    Default[14] = 20;
+    Default[15] = 20;
+  );
+
+  // Directives to adapt the order of the above members according to how these members 
+  // where arranged when the project content was stored. In this manner the storage 
+  // and the expected order of the members don't depend. Merging of changes in the 
+  // project files is simplified.
+  $member Bounds
+  $member background
+  $member Press
+  $member OnPress
+  $member Note
+  $member OnLoadItem
+  $member Note2
+  $member OnQueryItemClass
+  $member SlideTouchHandler
+  $member OnQueryItemWidth
+  $member Your_DataBase_Item_Class
+  $member Your_DataBase_Item_Height
+  $member Your_DataBase_Item_Title
+  $member HorizontalList
+  $member Image
+  $member SimpleTouchHandler
+  $member Image1
+  $member SimpleTouchHandler1
+  $member Your_DataBase_Item_Price
 }
 
 $rect <70,390,270,430>
 $output false
-class EnlargedScreen : Core::Group
+class DrinksMenu : Core::Group
 {
-  $rect <10,280,210,320>
-  inherited property Bounds = <0,0,347,240>;
+  $rect <10,290,210,330>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::Drinks;
+  }
+
+  $rect <510,60,710,100>
+  slot onMenu1
+  {
+    postsignal onShow;
+  }
+
+  $rect <510,20,710,60>
+  property slot onShow = null;
+
+  $rect <510,140,710,180>
+  slot onBuyScreen
+  {
+    postsignal onShow2;
+  }
+
+  $rect <510,100,710,140>
+  property slot onShow2 = null;
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <500,-10,730,190>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image returnButton
+  {
+    preset Bounds = <431,0,481,115>;
+    preset Bitmap = Application::returnbutton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler1
+  {
+    preset Point4 = <430,3>;
+    preset Point3 = <480,3>;
+    preset Point2 = <480,115>;
+    preset Point1 = <430,115>;
+    preset OnPress = onMenu1;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image returnButton1
+  {
+    preset Bounds = <431,127,481,242>;
+    preset Bitmap = Application::BuyButton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler2
+  {
+    preset Point4 = <431,130>;
+    preset Point3 = <481,130>;
+    preset Point2 = <481,242>;
+    preset Point1 = <431,242>;
+    preset OnPress = onBuyScreen;
+  }
+}
+
+$rect <70,439,270,479>
+$output false
+class MainMenu : Core::Group
+{
+  $rect <10,300,210,340>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::Menu;
+  }
+
+  $rect <510,60,710,100>
+  slot onMenu1
+  {
+    postsignal onShow;
+  }
+
+  $rect <510,20,710,60>
+  property slot onShow = null;
+
+  $rect <510,140,710,180>
+  slot onBuyScreen
+  {
+    postsignal onShow2;
+  }
+
+  $rect <510,100,710,140>
+  property slot onShow2 = null;
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <500,-10,730,190>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image returnButton
+  {
+    preset Bounds = <431,6,481,121>;
+    preset Bitmap = Application::returnbutton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler1
+  {
+    preset Point4 = <430,9>;
+    preset Point3 = <480,9>;
+    preset Point2 = <480,121>;
+    preset Point1 = <430,121>;
+    preset OnPress = onMenu1;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image returnButton1
+  {
+    preset Bounds = <431,133,481,248>;
+    preset Bitmap = Application::BuyButton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler2
+  {
+    preset Point4 = <431,136>;
+    preset Point3 = <481,136>;
+    preset Point2 = <481,248>;
+    preset Point1 = <431,248>;
+    preset OnPress = onBuyScreen;
+  }
+}
+
+$rect <70,490,270,530>
+$output false
+class DesertMenu : Core::Group
+{
+  $rect <20,280,220,320>
+  inherited property Bounds = <0,0,480,272>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,0,480,272>;
+    preset Bitmap = Application::Desert;
+  }
+
+  $rect <510,60,710,100>
+  slot onMenu1
+  {
+    postsignal onShow;
+  }
+
+  $rect <510,20,710,60>
+  property slot onShow = null;
+
+  $rect <510,140,710,180>
+  slot onBuyScreen
+  {
+    postsignal onShow2;
+  }
+
+  $rect <510,100,710,140>
+  property slot onShow2 = null;
+
+  // Tranziti pagini
+  note group Note
+  {
+    attr Bounds = <500,-20,730,180>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image returnButton
+  {
+    preset Bounds = <432,15,482,130>;
+    preset Bitmap = Application::returnbutton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler1
+  {
+    preset Point4 = <431,18>;
+    preset Point3 = <481,18>;
+    preset Point2 = <481,130>;
+    preset Point1 = <431,130>;
+    preset OnPress = onMenu1;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image returnButton1
+  {
+    preset Bounds = <432,142,482,257>;
+    preset Bitmap = Application::BuyButton;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler2
+  {
+    preset Point4 = <432,145>;
+    preset Point3 = <482,145>;
+    preset Point2 = <482,257>;
+    preset Point1 = <432,257>;
+    preset OnPress = onBuyScreen;
+  }
+}
+
+$rect <640,150,840,190>
+$output false
+class BuyScreenElement : Core::Group
+{
+  $rect <220,230,420,270>
+  inherited property Bounds = <0,0,80,272>;
+
+  $rect <220,310,420,350>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <220,270,420,310>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  $rect <20,20,160,60>
+  object Views::Image Image
+  {
+    preset Bounds = <0,140,80,272>;
+    preset Bitmap = Resources::DefaultBitmap;
+  }
 
   $rect <20,20,160,60>
   object Views::Rectangle Rectangle
   {
-    preset Bounds = <0,0,230,240>;
+    preset Bounds = <0,0,80,136>;
+    preset Color = #17086164;
+  }
+
+  $rect <210,100,410,140>
+  property Resources::Bitmap MyImage;
+
+  $rect <210,140,410,180>
+  onset MyImage
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure MyImage == value )
+      return;
+
+    // Remember the property's new value.
+    pure MyImage = value;
+
+    // TO DO:
+    // 
+    Image.Bitmap = value;
+  }
+
+  $rect <210,180,410,220>
+  onget MyImage
+  {
+    return pure MyImage;
   }
 
   $rect <20,20,160,60>
-  object WidgetSet::PushButton PushButton
+  object Views::Text Text
   {
-    preset Bounds = <240,204,347,240>;
-    preset OnPress = Press1;
-    preset Label = "Caption";
-    preset Appearance = WidgetSet::PushButton_Medium;
+    preset Bounds = <0,0,80,136>;
+    preset Orientation = Views::Orientation.Rotated_90;
+    preset String = "Text";
+    preset Font = Resources::FontExtraLarge;
   }
 
-  $rect <420,70,620,110>
-  slot Press1
+  $rect <420,100,620,140>
+  property string Price;
+
+  $rect <420,140,620,180>
+  onset Price
   {
-    postsignal OnPress1;
+    // The value doesn't change - nothing to do.
+    if ( pure Price == value )
+      return;
+
+    // Remember the property's new value.
+    pure Price = value;
+
+    // TO DO:
+    // 
+    Text.String = value;
   }
 
-  $rect <420,30,620,70>
-  property slot OnPress1 = null;
+  $rect <420,180,620,220>
+  onget Price
+  {
+    return pure Price;
+  }
+}
+
+$rect <919,160,1119,200>
+$output false
+resource Resources::Bitmap Soup1
+{
+  attr bitmapfile FileName = .\soup_pui.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1120,160,1320,200>
+$output false
+resource Resources::Bitmap Desert1
+{
+  attr bitmapfile FileName = .\desert_tiramisu.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <919,330,1119,370>
+$output false
+resource Resources::Bitmap Drinks1
+{
+  attr bitmapfile FileName = .\drinks_fanta.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1120,330,1320,370>
+$output false
+resource Resources::Bitmap Menu1
+{
+  attr bitmapfile FileName = .\main_ardei.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <340,490,540,530>
+$output false
+resource Resources::Bitmap returnbutton
+{
+  attr bitmapfile FileName = .\return.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <910,500,1110,540>
+$output false
+resource Resources::Bitmap Bitmap
+{
+  attr bitmapfile FileName = .\background1.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <919,199,1119,239>
+$output false
+resource Resources::Bitmap Soup2
+{
+  attr bitmapfile FileName = .\soup_legume.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <919,240,1119,280>
+$output false
+resource Resources::Bitmap Soup3
+{
+  attr bitmapfile FileName = .\soup_cartofi.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <919,279,1119,319>
+$output false
+resource Resources::Bitmap Soup4
+{
+  attr bitmapfile FileName = .\sout_vacuta.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1120,199,1320,239>
+$output false
+resource Resources::Bitmap Desert2
+{
+  attr bitmapfile FileName = .\desert_clatite.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1120,240,1320,280>
+$output false
+resource Resources::Bitmap Desert3
+{
+  attr bitmapfile FileName = .\desert_cremsnit.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1120,279,1320,319>
+$output false
+resource Resources::Bitmap Desert4
+{
+  attr bitmapfile FileName = .\desert_eclere.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <919,370,1119,410>
+$output false
+resource Resources::Bitmap Drinks2
+{
+  attr bitmapfile FileName = .\drinks_coca_cola.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <919,410,1119,450>
+$output false
+resource Resources::Bitmap Drinks3
+{
+  attr bitmapfile FileName = .\drinks_pepsi.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <919,450,1119,490>
+$output false
+resource Resources::Bitmap Drinks4
+{
+  attr bitmapfile FileName = .\drinks_sprite.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1120,370,1320,410>
+$output false
+resource Resources::Bitmap Menu2
+{
+  attr bitmapfile FileName = .\main_pilaf.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1120,410,1320,450>
+$output false
+resource Resources::Bitmap Menu3
+{
+  attr bitmapfile FileName = .\main_snitel.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <1120,450,1320,490>
+$output false
+resource Resources::Bitmap Menu4
+{
+  attr bitmapfile FileName = .\main_tochitura.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
 }
