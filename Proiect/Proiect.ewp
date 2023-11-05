@@ -106,13 +106,13 @@ $rect <290,70,490,110>
 profile Profile : STM.STM32.RGB565
 {
   attr Verbose = false;
-  attr ScreenSize = <480,272>;
+  attr ScreenSize = <272,480>;
   attr Optimization = High;
   attr ApplicationClass = Application::Application;
   attr CleanOutputDirectories = false;
   attr FontConversion = Windows;
   attr OutputFileNameExtension = c;
-  attr ScreenOrientation = Normal;
+  attr ScreenOrientation = Rotated_90;
   attr ModeOfBitmapResources = Compressed;
   attr ModeOfStringConstants = Compressed;
   attr OutputDirectory = C:\Users\Lenovo\OneDrive\Desktop\STM32\STM32F746-Discovery\Application\GeneratedCode;

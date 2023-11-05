@@ -6,107 +6,7 @@ $output false
 class Application : Core::Root
 {
   $rect <500,10,700,50>
-  inherited property Bounds = <0,0,480,272>;
-
-  $rect <20,20,160,60>
-  object Views::Rectangle Rectangle
-  {
-    preset Bounds = <0,0,480,272>;
-    preset Color = #000000FF;
-  }
-
-  $rect <20,20,160,60>
-  object Views::Text Text
-  {
-    preset Bounds = <99,105,381,166>;
-    preset WrapText = true;
-    preset String = "Welcome to\nEmbedded Wizard!";
-    preset Font = Resources::DefaultFont;
-    preset Color = #FFFFFFFF;
-  }
-
-  $rect <20,20,160,60>
-  object Application::MainScreen Menu
-  {
-    preset Bounds = <0,-1,480,271>;
-  }
-
-  $rect <20,20,160,60>
-  object Application::WelcomeScreen WelcomeScreen
-  {
-    preset Bounds = <0,-1,480,271>;
-    preset Opacity = 255;
-    preset Visible = true;
-  }
-
-  $rect <580,170,780,210>
-  inherited method Init()
-  {
-    // Just in the moment when the application starts: Create a new instance of
-    // the 'StartDialog'
-    var Application::WelcomeScreen dialog = new Application::WelcomeScreen;
-
-    // Configure the dialog before presenting it. In particular connect slot
-    // methods to receive events when the user has pressed a button in the dialog.
-    dialog.OnShow = onPressMainScreen;
-
-    // Present the Dialog now.
-    SwitchToDialog( dialog, null, null, null, null, null, null, null, null,null, true );
-  }
-
-  $rect <20,20,160,60>
-  object Application::SoupMenu Menu2
-  {
-    preset Bounds = <0,-1,480,271>;
-  }
-
-  $rect <580,210,780,250>
-  slot onPressMainScreen
-  {
-    // Create a new instance of the alert Dialog
-    var Application::MainScreen alert = new Application::MainScreen;
-
-    // Configure the alert before presenting it. In particular connect slot
-    // methods to receive events when the user has pressed a button in the alert.
-           alert.onShow1 = onPressSoupScreen;
-           alert.onShow2 = onPressBuyScreen;
-           alert.onShow3 = onPressDrinksScreen;
-           alert.onShow4 = onPressMainMenu;
-           alert.onShow5 = onPressDesertScreen;
-
-    // Present the alert Dialog now.
-    SwitchToDialog( alert, null, null, null, null, null, null, null, null,null, true );
-  }
-
-  $rect <580,250,780,290>
-  slot onPressSoupScreen
-  {
-    // Create a new instance of the alert Dialog
-
-    var Application::SoupMenu alert = new Application::SoupMenu;
-
-    // Configure the alert before presenting it. In particular connect slot
-    // methods to receive events when the user has pressed a button in the alert.
-    alert.onShow = onPressMainScreen;
-    alert.onShow2 = onPressBuyScreen;
-
-    // Present the alert Dialog now.
-    SwitchToDialog( alert, null, null, null, null, null, null, null, null,null, true );
-  }
-
-  $rect <580,290,780,330>
-  slot onPressBuyScreen
-  {
-    // Create a new instance of the alert Dialog
-    var Application::BuyScreen alert = new Application::BuyScreen;
-
-    // Configure the alert before presenting it. In particular connect slot
-    // methods to receive events when the user has pressed a button in the alert.
-    alert.OnPress = onPressMainScreen;
-
-    // Present the alert Dialog now.
-    SwitchToDialog( alert, null, null, null, null, null, null, null, null,null, true );
-  }
+  inherited property Bounds = <0,0,272,480>;
 
   // Tranziti pagini
   note group Note
@@ -114,69 +14,41 @@ class Application : Core::Root
     attr Bounds = <570,130,790,460>;
   }
 
-  $rect <580,330,780,370>
-  slot onPressDrinksScreen
+  $rect <20,20,160,60>
+  object Application::DesertMenu DesertMenu
   {
-    // Create a new instance of the alert Dialog
-    var Application::DrinksMenu drink = new Application::DrinksMenu;
-
-    // Configure the alert before presenting it. In particular connect slot
-    // methods to receive events when the user has pressed a button in the alert.
-    drink.onShow = onPressMainScreen;
-    drink.onShow2 = onPressBuyScreen;
-
-    // Present the alert Dialog now.
-    SwitchToDialog( drink, null, null, null, null, null, null, null, null,null, true );
+    preset Bounds = <0,0,272,480>;
   }
 
-  $rect <580,370,780,410>
-  slot onPressMainMenu
+  $rect <20,20,160,60>
+  object Application::DrinksMenu DrinksMenu
   {
-    // Create a new instance of the alert Dialog
-    var Application::MainMenu menu = new Application::MainMenu;
-
-    // Configure the alert before presenting it. In particular connect slot
-    // methods to receive events when the user has pressed a button in the alert.
-    menu.onShow = onPressMainScreen;
-    menu.onShow2 = onPressBuyScreen;
-
-    // Present the alert Dialog now.
-    SwitchToDialog( menu, null, null, null, null, null, null, null, null,null, true );
+    preset Bounds = <0,0,272,480>;
   }
 
-  $rect <580,410,780,450>
-  slot onPressDesertScreen
+  $rect <20,20,160,60>
+  object Application::MMenu MMenu
   {
-    // Create a new instance of the alert Dialog
-    var Application::DesertMenu menu = new Application::DesertMenu;
-
-    // Configure the alert before presenting it. In particular connect slot
-    // methods to receive events when the user has pressed a button in the alert.
-    menu.onShow = onPressMainScreen;
-    menu.onShow2 = onPressBuyScreen;
-
-    // Present the alert Dialog now.
-    SwitchToDialog( menu, null, null, null, null, null, null, null, null,null, true );
+    preset Bounds = <0,0,272,480>;
   }
 
-  // Directives to adapt the order of the above members according to how these members 
-  // where arranged when the project content was stored. In this manner the storage 
-  // and the expected order of the members don't depend. Merging of changes in the 
-  // project files is simplified.
-  $member Init
-  $member Bounds
-  $member Rectangle
-  $member Text
-  $member Menu2
-  $member Menu
-  $member WelcomeScreen
-  $member onPressMainScreen
-  $member onPressSoupScreen
-  $member onPressBuyScreen
-  $member Note
-  $member onPressDrinksScreen
-  $member onPressMainMenu
-  $member onPressDesertScreen
+  $rect <20,20,160,60>
+  object Application::SoupMenu SoupMenu
+  {
+    preset Bounds = <0,0,272,480>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::Screen Screen
+  {
+    preset Bounds = <0,0,272,480>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::WelcomeScreen WelcomeScreen
+  {
+    preset Bounds = <0,0,272,480>;
+  }
 }
 
 // Componente&Clase
@@ -188,7 +60,7 @@ note group Note2
 // Resurse
 note group Note3
 {
-  attr Bounds = <320,110,560,540>;
+  attr Bounds = <320,110,560,570>;
 }
 
 // Configurati obiecte
@@ -201,7 +73,7 @@ $rect <340,150,540,190>
 $output false
 resource Resources::Bitmap mainScreen
 {
-  attr bitmapfile FileName = .\Pag principala menu.png;
+  attr bitmapfile FileName = .\Menu restaurant1.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -211,28 +83,10 @@ resource Resources::Bitmap mainScreen
 
 $rect <70,240,270,280>
 $output false
-class MainScreen : Core::Group
+class Screen : Core::Group
 {
-  $rect <10,300,210,340>
-  inherited property Bounds = <0,0,480,272>;
-
-  $rect <500,80,700,120>
-  slot onMainScreen
-  {
-    postsignal onShow;
-  }
-
-  $rect <500,40,700,80>
-  property slot onShow = null;
-
-  $rect <500,160,700,200>
-  slot onBuyScreen
-  {
-    postsignal onShow2;
-  }
-
-  $rect <500,120,700,160>
-  property slot onShow2 = null;
+  $rect <560,340,760,380>
+  inherited property Bounds = <0,0,272,480>;
 
   // Tranziti pagini
   note group Note
@@ -243,101 +97,215 @@ class MainScreen : Core::Group
   $rect <20,20,160,60>
   object Views::Image Image
   {
-    preset Bounds = <0,0,480,272>;
+    preset Bounds = <0,0,272,480>;
     preset Bitmap = Application::mainScreen;
   }
-
-  $rect <700,80,900,120>
-  slot onSoupMenu
-  {
-    postsignal onShow1;
-  }
-
-  $rect <700,40,900,80>
-  property slot onShow1 = null;
-
-  $rect <700,160,900,200>
-  slot onDrinksMenu
-  {
-    postsignal onShow3;
-  }
-
-  $rect <700,120,900,160>
-  property slot onShow3 = null;
-
-  $rect <500,240,700,280>
-  slot onMainMenu
-  {
-    postsignal onShow4;
-  }
-
-  $rect <500,200,700,240>
-  property slot onShow4 = null;
-
-  $rect <700,240,900,280>
-  slot onDesertMenu
-  {
-    postsignal onShow5;
-  }
-
-  $rect <700,200,900,240>
-  property slot onShow5 = null;
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SoupTouchHandler
   {
-    preset Point4 = <76,18>;
-    preset Point3 = <219,18>;
-    preset Point2 = <219,118>;
-    preset Point1 = <76,118>;
-    preset OnPress = onSoupMenu;
+    preset Point4 = <11,109>;
+    preset Point3 = <126,109>;
+    preset Point2 = <126,209>;
+    preset Point1 = <11,209>;
+    preset OnPress = onAnimateSoupMenu;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler DrinksTouchHandler
   {
-    preset Point4 = <266,18>;
-    preset Point3 = <412,18>;
-    preset Point2 = <412,118>;
-    preset Point1 = <266,118>;
-    preset OnPress = onDrinksMenu;
+    preset Point4 = <136,87>;
+    preset Point3 = <250,87>;
+    preset Point2 = <250,191>;
+    preset Point1 = <136,191>;
+    preset OnPress = onAnimateDrinksMenu;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler MenuTouchHandler
   {
-    preset Point4 = <76,160>;
-    preset Point3 = <219,160>;
-    preset Point2 = <219,260>;
-    preset Point1 = <76,260>;
-    preset OnPress = onMainMenu;
+    preset Point4 = <11,271>;
+    preset Point3 = <126,271>;
+    preset Point2 = <126,371>;
+    preset Point1 = <11,371>;
+    preset OnPress = onAnimateMmenu;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler DesertTouchHandler
   {
-    preset Point4 = <266,160>;
-    preset Point3 = <412,160>;
-    preset Point2 = <412,260>;
-    preset Point1 = <266,260>;
-    preset OnPress = onDesertMenu;
+    preset Point4 = <136,262>;
+    preset Point3 = <250,262>;
+    preset Point2 = <250,362>;
+    preset Point1 = <136,362>;
+    preset OnPress = onAnimateDesertMenu;
   }
 
   $rect <20,20,160,60>
   object Views::Image returnButton1
   {
-    preset Bounds = <431,127,481,242>;
+    preset Bounds = <83,415,190,480>;
     preset Bitmap = Application::BuyButton;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler2
   {
-    preset Point4 = <430,136>;
-    preset Point3 = <480,136>;
-    preset Point2 = <480,248>;
-    preset Point1 = <430,248>;
-    preset OnPress = onBuyScreen;
+    preset Point4 = <83,430>;
+    preset Point3 = <190,430>;
+    preset Point2 = <190,463>;
+    preset Point1 = <83,463>;
+    preset OnPress = onAnimateBuyScreen;
+  }
+
+  // This is a slot method.
+  $rect <310,440,510,480>
+  slot onAnimateBuyScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect.Enabled = true;
+    //this.Bounds = RectEffect.Value;
+    RectEffect.Reversed = true;
+    BuyScreen.Bounds = RectEffect.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <310,400,510,440>
+  object Effects::RectEffect RectEffect
+  {
+    preset OnAnimate = onAnimateBuyScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::BuyScreen BuyScreen
+  {
+    preset Bounds = <53,-602,325,-122>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::DesertMenu DesertMenu
+  {
+    preset Bounds = <325,-602,597,-122>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::DrinksMenu DrinksMenu
+  {
+    preset Bounds = <550,-725,822,-245>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::MMenu MMenu
+  {
+    preset Bounds = <683,-654,955,-174>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::SoupMenu SoupMenu
+  {
+    preset Bounds = <521,-600,793,-120>;
+  }
+
+  // This is a slot method.
+  $rect <510,440,710,480>
+  slot onAnimateDesertMenu
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect1.Enabled = true;
+    //this.Bounds = RectEffect1.Value;
+    RectEffect1.Reversed = true;
+    DesertMenu.Bounds = RectEffect1.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <510,400,710,440>
+  object Effects::RectEffect RectEffect1
+  {
+    preset OnAnimate = onAnimateDesertMenu;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  // This is a slot method.
+  $rect <310,520,510,560>
+  slot onAnimateDrinksMenu
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect2.Enabled = true;
+    //this.Bounds = RectEffect2.Value;
+    RectEffect2.Reversed = true;
+    DrinksMenu.Bounds = RectEffect2.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <310,480,510,520>
+  object Effects::RectEffect RectEffect2
+  {
+    preset OnAnimate = onAnimateDrinksMenu;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  // This is a slot method.
+  $rect <510,520,710,560>
+  slot onAnimateMmenu
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect3.Enabled = true;
+    //this.Bounds = RectEffect3.Value;
+    RectEffect3.Reversed = true;
+    MMenu.Bounds = RectEffect3.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <510,480,710,520>
+  object Effects::RectEffect RectEffect3
+  {
+    preset OnAnimate = onAnimateMmenu;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  // This is a slot method.
+  $rect <410,600,610,640>
+  slot onAnimateSoupMenu
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect4.Enabled = true;
+    //this.Bounds = RectEffect4.Value;
+    RectEffect4.Reversed = true;
+    SoupMenu.Bounds = RectEffect4.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <410,560,610,600>
+  object Effects::RectEffect RectEffect4
+  {
+    preset OnAnimate = onAnimateSoupMenu;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
   }
 
   // Directives to adapt the order of the above members according to how these members 
@@ -346,38 +314,41 @@ class MainScreen : Core::Group
   // project files is simplified.
   $member Bounds
   $member Image
-  $member onMainScreen
-  $member onShow
-  $member onBuyScreen
-  $member onShow2
   $member Note
-  $member onSoupMenu
-  $member onShow1
-  $member onDrinksMenu
-  $member onShow3
-  $member onMainMenu
-  $member onShow4
-  $member onDesertMenu
-  $member onShow5
   $member SoupTouchHandler
   $member DrinksTouchHandler
   $member MenuTouchHandler
   $member DesertTouchHandler
   $member returnButton1
   $member SimpleTouchHandler2
+  $member onAnimateBuyScreen
+  $member RectEffect
+  $member BuyScreen
+  $member DesertMenu
+  $member DrinksMenu
+  $member MMenu
+  $member SoupMenu
+  $member onAnimateDesertMenu
+  $member RectEffect1
+  $member onAnimateDrinksMenu
+  $member RectEffect2
+  $member onAnimateMmenu
+  $member RectEffect3
+  $member onAnimateSoupMenu
+  $member RectEffect4
 }
 
 $rect <70,190,270,230>
 $output false
 class WelcomeScreen : Core::Group
 {
-  $rect <10,300,210,340>
-  inherited property Bounds = <0,0,480,272>;
+  $rect <290,90,490,130>
+  inherited property Bounds = <0,0,272,480>;
 
   $rect <20,20,160,60>
   object Views::Image Image
   {
-    preset Bounds = <0,0,480,272>;
+    preset Bounds = <0,0,272,480>;
     preset Bitmap = Application::BackgroundWelcomeScreen;
   }
 
@@ -385,25 +356,38 @@ class WelcomeScreen : Core::Group
   object Core::SimpleTouchHandler SimpleTouchHandler
   {
     preset Point4 = <0,0>;
-    preset Point3 = <480,0>;
-    preset Point2 = <480,272>;
-    preset Point1 = <0,272>;
-    preset OnPress = onWelcomeScreen;
+    preset Point3 = <272,0>;
+    preset Point2 = <272,480>;
+    preset Point1 = <0,480>;
+    preset OnPress = onAnimate;
   }
-
-  $rect <519,60,719,100>
-  slot onWelcomeScreen
-  {
-    postsignal OnShow;
-  }
-
-  $rect <520,20,720,60>
-  property slot OnShow = null;
 
   // Tranziti pagini
   note group Note
   {
     attr Bounds = <510,-30,730,170>;
+  }
+
+  // This is a slot method.
+  $rect <360,220,560,260>
+  slot onAnimate
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect.Enabled = true;
+    this.Bounds = RectEffect.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <360,180,560,220>
+  object Effects::RectEffect RectEffect
+  {
+    preset OnAnimate = onAnimate;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
   }
 }
 
@@ -459,7 +443,7 @@ $rect <340,398,540,438>
 $output false
 resource Resources::Bitmap BuyButton
 {
-  attr bitmapfile FileName = .\shop_now.png;
+  attr bitmapfile FileName = .\shop (1).png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
@@ -483,33 +467,15 @@ $rect <70,290,270,330>
 $output false
 class SoupMenu : Core::Group
 {
-  $rect <10,300,210,340>
-  inherited property Bounds = <0,0,480,272>;
+  $rect <520,230,720,270>
+  inherited property Bounds = <0,0,272,480>;
 
   $rect <20,20,160,60>
   object Views::Image Soup
   {
-    preset Bounds = <0,0,480,272>;
+    preset Bounds = <0,0,272,480>;
     preset Bitmap = Application::Soup;
   }
-
-  $rect <510,80,710,120>
-  slot onMenu1
-  {
-    postsignal onShow;
-  }
-
-  $rect <510,40,710,80>
-  property slot onShow = null;
-
-  $rect <510,160,710,200>
-  slot onBuyScreen
-  {
-    postsignal onShow2;
-  }
-
-  $rect <510,120,710,160>
-  property slot onShow2 = null;
 
   // Tranziti pagini
   note group Note
@@ -526,74 +492,73 @@ class SoupMenu : Core::Group
   $rect <20,20,160,60>
   object Views::Image returnButton
   {
-    preset Bounds = <431,0,481,115>;
+    preset Bounds = <0,426,136,480>;
     preset Bitmap = Application::returnbutton;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler BuyTouchHandler
   {
-    preset Point4 = <430,3>;
-    preset Point3 = <480,3>;
-    preset Point2 = <480,115>;
-    preset Point1 = <430,115>;
-    preset OnPress = onMenu1;
+    preset Point4 = <153,438>;
+    preset Point3 = <256,438>;
+    preset Point2 = <256,470>;
+    preset Point1 = <153,470>;
   }
 
   $rect <20,20,160,60>
   object Views::Image returnButton1
   {
-    preset Bounds = <431,127,481,242>;
+    preset Bounds = <136,426,272,480>;
     preset Bitmap = Application::BuyButton;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler ReturnTouchHandler
   {
-    preset Point4 = <431,130>;
-    preset Point3 = <481,130>;
-    preset Point2 = <481,242>;
-    preset Point1 = <431,242>;
-    preset OnPress = onBuyScreen;
+    preset Point4 = <16,438>;
+    preset Point3 = <121,438>;
+    preset Point2 = <121,470>;
+    preset Point1 = <16,470>;
+    preset OnPress = onAnimateScreen;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SoupNo1TouchHandler
   {
-    preset Point4 = <99,4>;
-    preset Point3 = <261,4>;
-    preset Point2 = <261,130>;
-    preset Point1 = <99,130>;
+    preset Point4 = <0,98>;
+    preset Point3 = <136,98>;
+    preset Point2 = <136,262>;
+    preset Point1 = <0,262>;
     preset OnPress = onTap;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SoupNo2TouchHandler
   {
-    preset Point4 = <99,136>;
-    preset Point3 = <261,136>;
-    preset Point2 = <261,272>;
-    preset Point1 = <99,272>;
+    preset Point4 = <136,98>;
+    preset Point3 = <272,98>;
+    preset Point2 = <272,262>;
+    preset Point1 = <136,262>;
     preset OnPress = onTap1;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SoupNo3TouchHandler
   {
-    preset Point4 = <261,136>;
-    preset Point3 = <423,136>;
-    preset Point2 = <423,262>;
-    preset Point1 = <261,262>;
+    preset Point4 = <0,262>;
+    preset Point3 = <136,262>;
+    preset Point2 = <136,426>;
+    preset Point1 = <0,426>;
     preset OnPress = onTap2;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SoupNo4TouchHandler
   {
-    preset Point4 = <269,1>;
-    preset Point3 = <431,1>;
-    preset Point2 = <431,127>;
-    preset Point1 = <269,127>;
+    preset Point4 = <136,262>;
+    preset Point3 = <272,262>;
+    preset Point2 = <272,426>;
+    preset Point1 = <136,426>;
     preset OnRelease = onTap;
     preset OnPress = onTap3;
   }
@@ -602,7 +567,6 @@ class SoupMenu : Core::Group
   $rect <630,340,830,380>
   slot onTap
   {
-
     if ( SoupNo1TouchHandler.Inside )
     {
         TapNo = TapNo + 1;
@@ -613,42 +577,39 @@ class SoupMenu : Core::Group
 
   }
 
+  $rect <420,340,620,380>
+  var int32 TapNo = 0;
+
+  // This is a slot method.
+  $rect <530,560,730,600>
+  slot onAnimateScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect1.Enabled = true;
+    this.Bounds = RectEffect1.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <530,520,730,560>
+  object Effects::RectEffect RectEffect1
+  {
+    preset OnAnimate = onAnimateScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
   // This is a slot method.
   $rect <630,380,830,420>
   slot onTap1
   {
     if ( SoupNo2TouchHandler.Inside )
     {
-         TapNo1 = TapNo1 + 1;
-         trace "tapuri1", TapNo1;
-       
-    }
-
-
-  }
-
-  // This is a slot method.
-  $rect <630,420,830,460>
-  slot onTap2
-  {
-    if ( SoupNo3TouchHandler.Inside )
-    {
-         TapNo2 = TapNo2 + 1;
-         trace "tapuri2", TapNo2;
-       
-    }
-
-
-  }
-
-  // This is a slot method.
-  $rect <630,460,830,500>
-  slot onTap3
-  {
-    if ( SoupNo4TouchHandler.Inside )
-    {
-         TapNo3 = TapNo3 + 1;
-         trace "tapuri3", TapNo3;
+        TapNo1 = TapNo1 + 1;
+         trace "tapuri", TapNo1;
        
     }
 
@@ -656,24 +617,49 @@ class SoupMenu : Core::Group
   }
 
   $rect <420,380,620,420>
-  var int32 TapNo1;
+  var int32 TapNo1 = 0;
 
-  $rect <420,460,620,500>
-  var int32 TapNo2;
+  // This is a slot method.
+  $rect <630,420,830,460>
+  slot onTap2
+  {
+    if ( SoupNo3TouchHandler.Inside )
+    {
+        TapNo2 = TapNo2 + 1;
+         trace "tapuri", TapNo2;
+       
+    }
+
+
+  }
 
   $rect <420,420,620,460>
-  var int32 TapNo3;
+  var int32 TapNo2 = 0;
 
-  $rect <420,340,620,380>
-  var int32 TapNo;
+  // This is a slot method.
+  $rect <630,460,830,500>
+  slot onTap3
+  {
+    if ( SoupNo4TouchHandler.Inside )
+    {
+        TapNo3 = TapNo3 + 1;
+         trace "tapuri", TapNo3;
+       
+    }
+
+
+  }
+
+  $rect <420,460,620,500>
+  var int32 TapNo3 = 0;
 }
 
 $rect <70,340,270,380>
 $output false
 class BuyScreen : Core::Group
 {
-  $rect <10,300,210,340>
-  inherited property Bounds = <0,0,480,272>;
+  $rect <480,290,680,330>
+  inherited property Bounds = <0,0,272,480>;
 
   $rect <520,80,720,120>
   slot Press
@@ -692,23 +678,23 @@ class BuyScreen : Core::Group
 
   // This method is called by 'VerticalList' every time the list loads or updates \
   // an item.
-  $rect <160,500,350,540>
+  $rect <160,600,350,640>
   slot OnLoadItem
   {
     // Get the number of the item to load.
+    var Application::Soup soup = new Application::SoupMenu;
+    var int32 itemNo = VerticalList.Item;
 
-    var int32 itemNo = HorizontalList.Item;
-
-    var Application::BuyScreenElement itemView = (Application::BuyScreenElement)HorizontalList.View;
+    var Application::BuyScreenElement itemView = (Application::BuyScreenElement)VerticalList.View;
 
     if ( itemView == null )
       return;
-         
-    itemView.MyImage = Your_DataBase_Item_Title[itemNo];
+      
+
     itemView.Price = Your_DataBase_Item_Price[itemNo];
 
                          
-    itemView.Bounds.size = HorizontalList.ViewSize;
+    itemView.Bounds.size = VerticalList.ViewSize;
 
   }
 
@@ -718,24 +704,24 @@ class BuyScreen : Core::Group
     attr Bounds = <440,370,750,590>;
   }
 
-  $rect <160,420,360,460>
+  $rect <160,520,360,560>
   slot OnQueryItemClass
   {
     // Get the number of the item to query its class.
-    var int32 itemNo = HorizontalList.Item;
+    var int32 itemNo = VerticalList.Item;
 
     // Estimate the class of the item and store it in the list.
-    HorizontalList.QueriedItemClass = Your_DataBase_Item_Class[ itemNo ];
+    VerticalList.QueriedItemClass = Your_DataBase_Item_Class[ itemNo ];
   }
 
-  $rect <160,460,360,500>
-  slot OnQueryItemWidth
+  $rect <160,560,360,600>
+  slot OnQueryItemHeight
   {
     // Get the number of the item to query its class.
-    var int32 itemNo = HorizontalList.Item;
+    var int32 itemNo = VerticalList.Item;
 
     // Estimate the height  of the item and store it in the list.
-    HorizontalList.QueriedItemWidth = Your_DataBase_Item_Height[ itemNo ];
+    VerticalList.QueriedItemHeight = Your_DataBase_Item_Height[ itemNo ];
   }
 
   $rect <460,420,730,460>
@@ -762,22 +748,22 @@ class BuyScreen : Core::Group
   $rect <460,460,730,500>
   array int32 Your_DataBase_Item_Height[ 16 ] =
   (
-    Default[0] = 80;
-    Default[1] = 80;
-    Default[2] = 80;
-    Default[3] = 80;
-    Default[4] = 80;
-    Default[5] = 80;
-    Default[6] = 80;
-    Default[7] = 80;
-    Default[8] = 80;
-    Default[9] = 80;
-    Default[10] = 80;
-    Default[11] = 80;
-    Default[12] = 80;
-    Default[13] = 80;
-    Default[14] = 80;
-    Default[15] = 80;
+    Default[0] = 100;
+    Default[1] = 100;
+    Default[2] = 100;
+    Default[3] = 100;
+    Default[4] = 100;
+    Default[5] = 100;
+    Default[6] = 100;
+    Default[7] = 100;
+    Default[8] = 100;
+    Default[9] = 100;
+    Default[10] = 100;
+    Default[11] = 100;
+    Default[12] = 100;
+    Default[13] = 100;
+    Default[14] = 100;
+    Default[15] = 100;
   );
 
   $rect <460,500,730,540>
@@ -803,11 +789,11 @@ class BuyScreen : Core::Group
 
   // This is a vertical list component.
   $rect <20,20,160,60>
-  object Core::HorizontalList HorizontalList
+  object Core::VerticalList VerticalList
   {
-    preset Bounds = <0,0,430,272>;
+    preset Bounds = <0,0,272,400>;
     preset OnQueryItemClass = OnQueryItemClass;
-    preset OnQueryItemWidth = OnQueryItemWidth;
+    preset OnQueryItemHeight = OnQueryItemHeight;
     preset OnLoadItem = OnLoadItem;
     preset SlideHandler = SlideTouchHandler;
     preset NoOfItems = 16;
@@ -817,48 +803,48 @@ class BuyScreen : Core::Group
   $rect <20,20,160,60>
   object Core::SlideTouchHandler SlideTouchHandler
   {
-    preset Bounds = <0,0,430,272>;
+    preset Bounds = <0,0,275,485>;
     preset SlideHorz = true;
   }
 
   $rect <20,20,160,60>
   object Views::Image Image
   {
-    preset Bounds = <430,153,480,268>;
-    preset Bitmap = Application::BuyButton;
+    preset Bounds = <2,427,137,485>;
+    preset Bitmap = Application::confirm;
   }
 
   $rect <20,20,160,60>
   object Views::Image background
   {
-    preset Bounds = <-3,-9,480,272>;
+    preset Bounds = <0,-4,275,485>;
     preset Bitmap = Application::Bitmap;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler
   {
-    preset Point4 = <430,156>;
-    preset Point3 = <480,156>;
-    preset Point2 = <480,268>;
-    preset Point1 = <430,268>;
+    preset Point4 = <0,438>;
+    preset Point3 = <136,438>;
+    preset Point2 = <136,471>;
+    preset Point1 = <0,471>;
   }
 
   $rect <20,20,160,60>
   object Views::Image Image1
   {
-    preset Bounds = <430,0,480,115>;
+    preset Bounds = <151,427,272,480>;
     preset Bitmap = Application::returnbutton;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler1
   {
-    preset Point4 = <430,3>;
-    preset Point3 = <480,3>;
-    preset Point2 = <480,115>;
-    preset Point1 = <430,115>;
-    preset OnPress = Press;
+    preset Point4 = <160,438>;
+    preset Point3 = <272,438>;
+    preset Point2 = <272,471>;
+    preset Point1 = <160,471>;
+    preset OnPress = onAnimateScreen;
   }
 
   $rect <460,540,730,580>
@@ -882,6 +868,28 @@ class BuyScreen : Core::Group
     Default[15] = 20;
   );
 
+  // This is a slot method.
+  $rect <490,690,690,730>
+  slot onAnimateScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect1.Enabled = true;
+    this.Bounds = RectEffect1.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <490,650,690,690>
+  object Effects::RectEffect RectEffect1
+  {
+    preset OnAnimate = onAnimateScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
   // Directives to adapt the order of the above members according to how these members 
   // where arranged when the project content was stored. In this manner the storage 
   // and the expected order of the members don't depend. Merging of changes in the 
@@ -895,26 +903,28 @@ class BuyScreen : Core::Group
   $member Note2
   $member OnQueryItemClass
   $member SlideTouchHandler
-  $member OnQueryItemWidth
+  $member OnQueryItemHeight
   $member Your_DataBase_Item_Class
   $member Your_DataBase_Item_Height
   $member Your_DataBase_Item_Title
-  $member HorizontalList
+  $member VerticalList
   $member Image
   $member SimpleTouchHandler
   $member Image1
   $member SimpleTouchHandler1
   $member Your_DataBase_Item_Price
+  $member onAnimateScreen
+  $member RectEffect1
 }
 
 $rect <70,390,270,430>
 $output false
 class DrinksMenu : Core::Group
 {
-  $rect <10,290,210,330>
-  inherited property Bounds = <0,0,480,272>;
+  $rect <360,290,560,330>
+  inherited property Bounds = <0,0,272,480>;
 
-  $rect <10,390,210,430>
+  $rect <360,390,560,430>
   inherited method UpdateLayout()
   {
     // Always invoke the inherited method.
@@ -943,7 +953,7 @@ class DrinksMenu : Core::Group
     */
   }
 
-  $rect <10,350,210,390>
+  $rect <360,350,560,390>
   inherited method UpdateViewState()
   {
     // Always invoke the inherited method.
@@ -1044,7 +1054,7 @@ class DrinksMenu : Core::Group
   $rect <20,20,160,60>
   object Views::Image Image
   {
-    preset Bounds = <0,0,480,272>;
+    preset Bounds = <0,0,272,480>;
     preset Bitmap = Application::Drinks;
   }
 
@@ -1075,46 +1085,134 @@ class DrinksMenu : Core::Group
   $rect <20,20,160,60>
   object Views::Image returnButton
   {
-    preset Bounds = <431,0,481,115>;
+    preset Bounds = <0,435,135,480>;
     preset Bitmap = Application::returnbutton;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler1
   {
-    preset Point4 = <430,3>;
-    preset Point3 = <480,3>;
-    preset Point2 = <480,115>;
-    preset Point1 = <430,115>;
-    preset OnPress = onMenu1;
+    preset Point4 = <13,435>;
+    preset Point3 = <118,435>;
+    preset Point2 = <118,480>;
+    preset Point1 = <13,480>;
+    preset OnPress = onAnimateScreen;
   }
 
   $rect <20,20,160,60>
   object Views::Image returnButton1
   {
-    preset Bounds = <431,127,481,242>;
+    preset Bounds = <135,435,272,480>;
     preset Bitmap = Application::BuyButton;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler2
   {
-    preset Point4 = <431,130>;
-    preset Point3 = <481,130>;
-    preset Point2 = <481,242>;
-    preset Point1 = <431,242>;
-    preset OnPress = onBuyScreen;
+    preset Point4 = <151,435>;
+    preset Point3 = <258,435>;
+    preset Point2 = <258,480>;
+    preset Point1 = <151,480>;
+    preset OnPress = onAnimateBuyScreen;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler DrinkNo1TouchHandler1
+  {
+    preset Point4 = <0,92>;
+    preset Point3 = <136,92>;
+    preset Point2 = <135,242>;
+    preset Point1 = <0,242>;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler DrinkNo2TouchHandler1
+  {
+    preset Point4 = <135,93>;
+    preset Point3 = <271,93>;
+    preset Point2 = <271,242>;
+    preset Point1 = <135,242>;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler DrinkNo3TouchHandler1
+  {
+    preset Point4 = <0,242>;
+    preset Point3 = <136,242>;
+    preset Point2 = <135,391>;
+    preset Point1 = <0,391>;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler DrinkNo4TouchHandler2
+  {
+    preset Point4 = <135,242>;
+    preset Point3 = <271,242>;
+    preset Point2 = <271,391>;
+    preset Point1 = <135,391>;
+  }
+
+  // This is a slot method.
+  $rect <370,240,570,280>
+  slot onAnimateBuyScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect.Enabled = true;
+    //this.Bounds = RectEffect.Value;
+    RectEffect.Reversed = true;
+    BuyScreen.Bounds = RectEffect.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <370,200,570,240>
+  object Effects::RectEffect RectEffect
+  {
+    preset OnAnimate = onAnimateBuyScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  // This is a slot method.
+  $rect <570,240,770,280>
+  slot onAnimateScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect1.Enabled = true;
+    this.Bounds = RectEffect1.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <580,200,780,240>
+  object Effects::RectEffect RectEffect1
+  {
+    preset OnAnimate = onAnimateScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::BuyScreen BuyScreen
+  {
+    preset Bounds = <751,-259,1023,221>;
   }
 }
 
 $rect <70,439,270,479>
 $output false
-class MainMenu : Core::Group
+class MMenu : Core::Group
 {
-  $rect <10,300,210,340>
-  inherited property Bounds = <0,0,480,272>;
+  $rect <360,290,560,330>
+  inherited property Bounds = <0,0,272,480>;
 
-  $rect <10,390,210,430>
+  $rect <360,380,560,420>
   inherited method UpdateLayout()
   {
     // Always invoke the inherited method.
@@ -1143,7 +1241,7 @@ class MainMenu : Core::Group
     */
   }
 
-  $rect <10,350,210,390>
+  $rect <360,340,560,380>
   inherited method UpdateViewState()
   {
     // Always invoke the inherited method.
@@ -1244,7 +1342,7 @@ class MainMenu : Core::Group
   $rect <20,20,160,60>
   object Views::Image Image
   {
-    preset Bounds = <0,0,480,272>;
+    preset Bounds = <0,0,272,480>;
     preset Bitmap = Application::Menu;
   }
 
@@ -1275,35 +1373,123 @@ class MainMenu : Core::Group
   $rect <20,20,160,60>
   object Views::Image returnButton
   {
-    preset Bounds = <431,6,481,121>;
+    preset Bounds = <6,431,119,485>;
     preset Bitmap = Application::returnbutton;
   }
 
   $rect <20,20,160,60>
-  object Core::SimpleTouchHandler SimpleTouchHandler1
+  object Core::SimpleTouchHandler returnTouchHandler
   {
-    preset Point4 = <430,9>;
-    preset Point3 = <480,9>;
-    preset Point2 = <480,121>;
-    preset Point1 = <430,121>;
-    preset OnPress = onMenu1;
+    preset Point4 = <12,443>;
+    preset Point3 = <110,443>;
+    preset Point2 = <110,480>;
+    preset Point1 = <12,480>;
+    preset OnPress = onAnimateScreen;
   }
 
   $rect <20,20,160,60>
   object Views::Image returnButton1
   {
-    preset Bounds = <431,133,481,248>;
+    preset Bounds = <165,437,272,480>;
     preset Bitmap = Application::BuyButton;
   }
 
   $rect <20,20,160,60>
-  object Core::SimpleTouchHandler SimpleTouchHandler2
+  object Core::SimpleTouchHandler buyTouchHandler
   {
-    preset Point4 = <431,136>;
-    preset Point3 = <481,136>;
-    preset Point2 = <481,248>;
-    preset Point1 = <431,248>;
-    preset OnPress = onBuyScreen;
+    preset Point4 = <165,443>;
+    preset Point3 = <272,443>;
+    preset Point2 = <272,474>;
+    preset Point1 = <165,474>;
+    preset OnPress = onAnimateBuyScreen;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler MainNo1TouchHandler
+  {
+    preset Point4 = <0,106>;
+    preset Point3 = <136,106>;
+    preset Point2 = <136,240>;
+    preset Point1 = <0,240>;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler MainNo2TouchHandler
+  {
+    preset Point4 = <136,106>;
+    preset Point3 = <272,106>;
+    preset Point2 = <272,240>;
+    preset Point1 = <136,240>;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler MainNo3TouchHandler
+  {
+    preset Point4 = <0,240>;
+    preset Point3 = <136,240>;
+    preset Point2 = <136,396>;
+    preset Point1 = <0,396>;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler MainNo4TouchHandler
+  {
+    preset Point4 = <136,240>;
+    preset Point3 = <272,240>;
+    preset Point2 = <272,411>;
+    preset Point1 = <136,411>;
+  }
+
+  // This is a slot method.
+  $rect <410,240,610,280>
+  slot onAnimateBuyScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect.Enabled = true;
+    //this.Bounds = RectEffect.Value;
+    RectEffect.Reversed = true;
+    BuyScreen.Bounds = RectEffect.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <410,200,610,240>
+  object Effects::RectEffect RectEffect
+  {
+    preset OnAnimate = onAnimateBuyScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  // This is a slot method.
+  $rect <610,240,810,280>
+  slot onAnimateScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect1.Enabled = true;
+    this.Bounds = RectEffect1.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <610,200,810,240>
+  object Effects::RectEffect RectEffect1
+  {
+    preset OnAnimate = onAnimateScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::BuyScreen BuyScreen
+  {
+    preset Bounds = <307,-516,579,-36>;
   }
 }
 
@@ -1311,10 +1497,10 @@ $rect <70,490,270,530>
 $output false
 class DesertMenu : Core::Group
 {
-  $rect <20,280,220,320>
-  inherited property Bounds = <0,0,480,272>;
+  $rect <510,290,710,330>
+  inherited property Bounds = <0,0,272,480>;
 
-  $rect <10,390,210,430>
+  $rect <500,400,700,440>
   inherited method UpdateLayout()
   {
     // Always invoke the inherited method.
@@ -1343,7 +1529,7 @@ class DesertMenu : Core::Group
     */
   }
 
-  $rect <10,350,210,390>
+  $rect <500,360,700,400>
   inherited method UpdateViewState()
   {
     // Always invoke the inherited method.
@@ -1444,7 +1630,7 @@ class DesertMenu : Core::Group
   $rect <20,20,160,60>
   object Views::Image Image
   {
-    preset Bounds = <0,0,480,272>;
+    preset Bounds = <0,0,272,480>;
     preset Bitmap = Application::Desert;
   }
 
@@ -1475,35 +1661,87 @@ class DesertMenu : Core::Group
   $rect <20,20,160,60>
   object Views::Image returnButton
   {
-    preset Bounds = <432,15,482,130>;
+    preset Bounds = <0,434,136,480>;
     preset Bitmap = Application::returnbutton;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler1
   {
-    preset Point4 = <431,18>;
-    preset Point3 = <481,18>;
-    preset Point2 = <481,130>;
-    preset Point1 = <431,130>;
-    preset OnPress = onMenu1;
+    preset Point4 = <18,434>;
+    preset Point3 = <118,434>;
+    preset Point2 = <118,480>;
+    preset Point1 = <18,480>;
+    preset OnPress = onAnimateScreen;
   }
 
   $rect <20,20,160,60>
   object Views::Image returnButton1
   {
-    preset Bounds = <432,142,482,257>;
+    preset Bounds = <136,434,272,480>;
     preset Bitmap = Application::BuyButton;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler2
   {
-    preset Point4 = <432,145>;
-    preset Point3 = <482,145>;
-    preset Point2 = <482,257>;
-    preset Point1 = <432,257>;
-    preset OnPress = onBuyScreen;
+    preset Point4 = <154,434>;
+    preset Point3 = <259,434>;
+    preset Point2 = <259,480>;
+    preset Point1 = <154,480>;
+    preset OnPress = onAnimateBuyScreen;
+  }
+
+  // This is a slot method.
+  $rect <370,240,570,280>
+  slot onAnimateBuyScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect.Enabled = true;
+    //this.Bounds = RectEffect.Value;
+    RectEffect.Reversed = true;
+    BuyScreen.Bounds = RectEffect.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <370,200,570,240>
+  object Effects::RectEffect RectEffect
+  {
+    preset OnAnimate = onAnimateBuyScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  // This is a slot method.
+  $rect <570,240,770,280>
+  slot onAnimateScreen
+  {
+    // Just move and enlarge all 3 Frame views simultanously.
+    // Calculate with an additional offset to arrange the views one below the other.
+    RectEffect1.Enabled = true;
+    this.Bounds = RectEffect1.Value;
+
+  }
+
+  // This is a move and resize rectangle effect.
+  $rect <570,200,770,240>
+  object Effects::RectEffect RectEffect1
+  {
+    preset OnAnimate = onAnimateScreen;
+    preset NoOfCycles = 1;
+    preset Enabled = false;
+    preset Value2 = <0,1000,272,480>;
+    preset Value1 = <0,0,272,480>;
+  }
+
+  $rect <20,20,160,60>
+  object Application::BuyScreen BuyScreen
+  {
+    preset Bounds = <554,-452,826,28>;
   }
 }
 
@@ -1512,7 +1750,7 @@ $output false
 class BuyScreenElement : Core::Group
 {
   $rect <220,230,420,270>
-  inherited property Bounds = <0,0,80,272>;
+  inherited property Bounds = <0,0,272,100>;
 
   $rect <220,310,420,350>
   inherited method UpdateLayout()
@@ -1644,14 +1882,14 @@ class BuyScreenElement : Core::Group
   $rect <20,20,160,60>
   object Views::Image Image
   {
-    preset Bounds = <0,140,80,272>;
+    preset Bounds = <0,0,144,100>;
     preset Bitmap = Resources::DefaultBitmap;
   }
 
   $rect <20,20,160,60>
   object Views::Rectangle Rectangle
   {
-    preset Bounds = <0,0,80,136>;
+    preset Bounds = <144,0,272,100>;
     preset Color = #17086164;
   }
 
@@ -1682,8 +1920,8 @@ class BuyScreenElement : Core::Group
   $rect <20,20,160,60>
   object Views::Text Text
   {
-    preset Bounds = <0,0,80,136>;
-    preset Orientation = Views::Orientation.Rotated_90;
+    preset Bounds = <144,0,272,100>;
+    preset Orientation = Views::Orientation.Normal;
     preset String = "Text";
     preset Font = Resources::FontExtraLarge;
   }
@@ -1922,6 +2160,18 @@ $output false
 resource Resources::Bitmap Menu4
 {
   attr bitmapfile FileName = .\main_tochitura.png;
+  attr bitmapformat Format = Native;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapdithering Dithering = Auto;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <340,530,540,570>
+$output false
+resource Resources::Bitmap confirm
+{
+  attr bitmapfile FileName = .\confirmation.png;
   attr bitmapformat Format = Native;
   attr framesize FrameSize;
   attr framedelay FrameDelay;
