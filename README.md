@@ -40,8 +40,8 @@ Proiectu cu restaurant , interfata meniu
 -Robert a mai modificat design-ul
 
 #### Saptamana 6
--Cosmin a adaugat restul de elemente (lista cu adaugare/eliminare automata , metoda de plata cu qr+telefon , bon care se schimba automat)
--Robert a mai facut la design
+-Cosmin a adaugat restul de elemente (lista cu adaugare/eliminare automata , metoda de plata cu qr+telefon , bon care se schimba automat) <br>
+-Robert a mai facut la design <br>
 -Vlad a testat elementele 
 
   
