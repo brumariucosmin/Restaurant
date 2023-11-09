@@ -1,0 +1,7 @@
+$version 1.0
+
+colorstatistic
+{
+
+};
+// color statistic containing 0 entries
