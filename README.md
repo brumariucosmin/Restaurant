@@ -34,5 +34,10 @@ Proiectu cu restaurant , interfata meniu
   -Un gif realizat de Cosmin pentru a ii ajuta pe colegi cu incarcatul pe git <br>
   ![ezgif com-gif-maker](https://github.com/etc-sea/Restaurant/assets/106124168/512f4f66-adfd-44be-b8a9-fff2f294ec80)
 
+#### Saptamana 5
+-Cosmin a mai modificat la GUI (a eliminat tot ce era cu dialog si a pus tranziti cu animati) <br>
+-Vlad a test componentele <br>
+-Robert a mai modificat design-ul
+
   
 
