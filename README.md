@@ -39,5 +39,10 @@ Proiectu cu restaurant , interfata meniu
 -Vlad a test componentele <br>
 -Robert a mai modificat design-ul
 
+#### Saptamana 6
+-Cosmin a adaugat restul de elemente (lista cu adaugare/eliminare automata , metoda de plata cu qr+telefon , bon care se schimba automat)
+-Robert a mai facut la design
+-Vlad a testat elementele 
+
   
 
