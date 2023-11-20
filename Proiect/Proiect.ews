@@ -3,10 +3,10 @@ $version 1.0
 attr active = Application::Screen;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,22>;
-attr codeInspector = Application::Screen.onAnimateBonScreen;
-attr codeSelEnd = <23,27>;
-attr codeSelStart = <23,27>;
+attr codeFirstPos = <0,0>;
+attr codeInspector = Application::Screen.onBonConfigure;
+attr codeSelEnd = <34,4>;
+attr codeSelStart = <34,4>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -81,12 +81,12 @@ view class Application::SoupMenu
 view class Application::Screen
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,22>;
-  attr codeInspector = onAnimateBonScreen;
-  attr codeSelEnd = <23,27>;
-  attr codeSelStart = <23,27>;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = onBonConfigure;
+  attr codeSelEnd = <34,4>;
+  attr codeSelStart = <34,4>;
   attr enableWireMode = false;
-  attr scrollTo = <-711,-159>;
+  attr scrollTo = <-1018,2>;
   attr zoom = 0.5;
 }
 

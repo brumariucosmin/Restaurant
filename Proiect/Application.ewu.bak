@@ -76,7 +76,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Image Image
   {
-    preset Bounds = <1110,-16,1382,464>;
+    preset Bounds = <0,0,272,480>;
     preset Bitmap = Application::mainScreen;
     preset Embedded = true;
   }
@@ -84,21 +84,22 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SoupTouchHandler
   {
-    preset Point4 = <1121,93>;
-    preset Point3 = <1236,93>;
-    preset Point2 = <1236,193>;
-    preset Point1 = <1121,193>;
-    preset OnPress = onAnimateSoupMenu;
+    preset Point4 = <11,109>;
+    preset Point3 = <126,109>;
+    preset Point2 = <126,209>;
+    preset Point1 = <11,209>;
+    preset OnRelease = onAnimateSoupMenu;
+    preset OnPress = Slot;
     preset Embedded = true;
   }
 
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler DrinksTouchHandler
   {
-    preset Point4 = <1246,71>;
-    preset Point3 = <1360,71>;
-    preset Point2 = <1360,175>;
-    preset Point1 = <1246,175>;
+    preset Point4 = <136,87>;
+    preset Point3 = <250,87>;
+    preset Point2 = <250,191>;
+    preset Point1 = <136,191>;
     preset OnPress = onAnimateDrinksMenu;
     preset Embedded = true;
   }
@@ -106,10 +107,10 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler MenuTouchHandler
   {
-    preset Point4 = <1121,255>;
-    preset Point3 = <1236,255>;
-    preset Point2 = <1236,355>;
-    preset Point1 = <1121,355>;
+    preset Point4 = <11,271>;
+    preset Point3 = <126,271>;
+    preset Point2 = <126,371>;
+    preset Point1 = <11,371>;
     preset OnPress = onAnimateMmenu;
     preset Embedded = true;
   }
@@ -117,10 +118,10 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler DesertTouchHandler
   {
-    preset Point4 = <1246,246>;
-    preset Point3 = <1360,246>;
-    preset Point2 = <1360,346>;
-    preset Point1 = <1246,346>;
+    preset Point4 = <136,262>;
+    preset Point3 = <250,262>;
+    preset Point2 = <250,362>;
+    preset Point1 = <136,362>;
     preset OnPress = onAnimateDesertMenu;
     preset Embedded = true;
   }
@@ -128,7 +129,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Image returnButton1
   {
-    preset Bounds = <1193,399,1300,464>;
+    preset Bounds = <83,415,190,480>;
     preset Bitmap = Application::BuyButton;
     preset Embedded = true;
   }
@@ -136,10 +137,10 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler BuyScreenTouchHandler
   {
-    preset Point4 = <1193,414>;
-    preset Point3 = <1300,414>;
-    preset Point2 = <1300,447>;
-    preset Point1 = <1193,447>;
+    preset Point4 = <83,430>;
+    preset Point3 = <190,430>;
+    preset Point2 = <190,463>;
+    preset Point1 = <83,463>;
     preset OnPress = onAnimateBuyScreen;
     preset Embedded = true;
   }
@@ -229,7 +230,7 @@ class Screen : Core::Group
   object Core::Outline ScreenMenuOutline
   {
     preset Layout = Core::Layout[];
-    preset Bounds = <1110,-16,1382,464>;
+    preset Bounds = <0,0,272,480>;
   }
 
   $rect <20,20,160,60>
@@ -1505,19 +1506,14 @@ class Screen : Core::Group
   $rect <250,1220,450,1260>
   inherited method UpdateViewState()
   {
+    // Always invoke the inherited method.
     super( aState );
 
-    // Calculate the position of the cursor relative to the left edge of the
-    // text area and the height of the cursor.
-    var int32 x = Text1.Font.GetTextAdvance( Text1.String, 0, CursorPos );
-    var int32 h = Text1.Font.Ascent + Text1.Font.Descent;
-
-    // The origin position of the Text view
-    var point textOrigin = Text1.Bounds.origin;
-
-    // Arrange the cursor at the just calculated position.
-    Cursor.Bounds = rect( x, 0, x + 2, h ) + textOrigin;
-
+    // Determine the new state of the affected keyboard.
+    //
+    // isKeyView --> the 'text' or 'image' view representing the pressed key.
+    // isPressed --> the affected key should appear pressed.
+    //
     var Core::View isKeyView = null;
     var bool       isPressed = ( TouchHandler.Down && TouchHandler.Inside ) || 
                                  FlashTimer.Enabled;
@@ -1811,7 +1807,7 @@ class Screen : Core::Group
      TextKey4.Bounds = RectEffect.Value2;
      TextKey5.Bounds = RectEffect.Value2;
      TextKey6.Bounds = RectEffect.Value2;
-     TextKey8.Bounds = RectEffect.Value2;
+     TextKey7.Bounds = RectEffect.Value2;
      TextKey8.Bounds = RectEffect.Value2;
      TextKey9 .Bounds = RectEffect.Value2;
      TextKey0.Bounds = RectEffect.Value2;
@@ -1863,7 +1859,7 @@ class Screen : Core::Group
      TextKey4.Bounds = RectEffect.Value2;
      TextKey5.Bounds = RectEffect.Value2;
      TextKey6.Bounds = RectEffect.Value2;
-     TextKey8.Bounds = RectEffect.Value2;
+     TextKey7.Bounds = RectEffect.Value2;
      TextKey8.Bounds = RectEffect.Value2;
      TextKey9 .Bounds = RectEffect.Value2;
      TextKey0.Bounds = RectEffect.Value2;
@@ -1879,13 +1875,13 @@ class Screen : Core::Group
   object Core::Outline QrMenuOutline
   {
     preset Layout = Core::Layout[];
-    preset Bounds = <-6,0,266,480>;
+    preset Bounds = <751,34,1023,514>;
   }
 
   $rect <20,20,160,60>
   object Views::Image Image2
   {
-    preset Bounds = <-6,0,266,480>;
+    preset Bounds = <751,34,1023,514>;
     preset Bitmap = Application::Background;
     preset Embedded = true;
   }
@@ -1893,10 +1889,10 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::WarpImage QrCode
   {
-    preset Point4 = <58,158>;
-    preset Point3 = <210,158>;
-    preset Point2 = <212,26>;
-    preset Point1 = <58,26>;
+    preset Point4 = <815,192>;
+    preset Point3 = <967,192>;
+    preset Point2 = <969,60>;
+    preset Point1 = <815,60>;
     preset Embedded = true;
     preset Bitmap = Application::qr3;
   }
@@ -1904,7 +1900,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Text Text
   {
-    preset Bounds = <30,158,225,231>;
+    preset Bounds = <787,192,982,265>;
     preset EnableBidiText = false;
     preset AutoSize = false;
     preset WrapText = true;
@@ -1916,7 +1912,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Image returnButton6
   {
-    preset Bounds = <127,411,262,456>;
+    preset Bounds = <884,445,1019,490>;
     preset Bitmap = Application::confirm;
     preset Embedded = true;
   }
@@ -1924,7 +1920,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Image returnButton7
   {
-    preset Bounds = <-10,411,127,456>;
+    preset Bounds = <747,445,884,490>;
     preset Bitmap = Application::BuyButton;
     preset Embedded = true;
   }
@@ -1933,7 +1929,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Rectangle Background
   {
-    preset Bounds = <22,241,235,265>;
+    preset Bounds = <779,275,992,299>;
     preset Color = #F0F0F0FF;
     preset Embedded = true;
   }
@@ -1942,7 +1938,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Text Text1
   {
-    preset Bounds = <22,241,235,265>;
+    preset Bounds = <779,275,992,299>;
     preset Alignment = Views::TextAlignment[AlignHorzLeft, AlignVertCenter];
     preset String = "";
     preset Font = Resources::FontMedium;
@@ -1954,7 +1950,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Rectangle Cursor
   {
-    preset Bounds = <22,241,24,265>;
+    preset Bounds = <779,275,781,299>;
     preset Color = #FF0004FF;
     preset Embedded = true;
   }
@@ -1963,7 +1959,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Border Border
   {
-    preset Bounds = <22,241,235,265>;
+    preset Bounds = <779,275,992,299>;
     preset Color = #D4D4D4FF;
     preset Embedded = true;
   }
@@ -1971,10 +1967,10 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler
   {
-    preset Point4 = <127,411>;
-    preset Point3 = <262,411>;
-    preset Point2 = <262,455>;
-    preset Point1 = <127,455>;
+    preset Point4 = <884,445>;
+    preset Point3 = <1019,445>;
+    preset Point2 = <1019,489>;
+    preset Point1 = <884,489>;
     preset OnPress = CodeConfirm;
     preset Embedded = true;
   }
@@ -1982,7 +1978,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Text Text2
   {
-    preset Bounds = <31,194,226,267>;
+    preset Bounds = <788,228,983,301>;
     preset EnableBidiText = false;
     preset AutoSize = false;
     preset WrapText = true;
@@ -1996,10 +1992,10 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler1
   {
-    preset Point4 = <-10,411>;
-    preset Point3 = <125,411>;
-    preset Point2 = <125,455>;
-    preset Point1 = <-10,455>;
+    preset Point4 = <747,445>;
+    preset Point3 = <882,445>;
+    preset Point2 = <882,489>;
+    preset Point1 = <747,489>;
     preset OnPress = onAnimateQrBuyScreen;
     preset Embedded = true;
   }
@@ -2026,6 +2022,25 @@ class Screen : Core::Group
     ReturnBuyTouchHandler.Point4 = <1000,1000>;
     QrMenuOutline.Bounds = RectEffect.Value1;
 
+    Background1.Bounds = <72,277,207,407>;
+     Border1.Bounds = <70,274,205,404>;
+     TouchHandler.Point1 = <77,281>;
+     TouchHandler.Point2 = <196,281>;
+     TouchHandler.Point3 = <196,397>;
+     TouchHandler.Point4 = <77,397>;
+     Highlight.Bounds =<78,281,118,310>;
+     TextKey1.Bounds = <78,281,118,310>;
+     TextKey2.Bounds = <118,281,157,310>;
+     TextKey3.Bounds = <157,281,197,310>;
+     TextKey4.Bounds = <78,310,118,339>;
+     TextKey5.Bounds = <118,310,157,339>;
+     TextKey6.Bounds = <157,310,197,339>;
+     TextKey7.Bounds = <78,339,118,368>;
+     TextKey8.Bounds = <118,339,157,368>;
+     TextKey9 .Bounds =<157,339,197,368>;
+     TextKey0.Bounds = <118,368,157,397>;
+     ImageKeyClear.Bounds = <78,368,118,397>;
+     ImageKeyEnter.Bounds = <157,368,197,397>;
   }
 
   // This is a slot method.
@@ -2051,7 +2066,25 @@ class Screen : Core::Group
     ReturnBuyTouchHandler.Point3 = <272,438>;
     ReturnBuyTouchHandler.Point4 = <160,438>;
     BuyScreenOutline.Bounds = RectEffect.Value1;
-
+    Background1.Bounds = RectEffect.Value2;
+     Border1.Bounds = RectEffect.Value2;
+     TouchHandler.Point1 = <1000,1000>;
+     TouchHandler.Point2 = <1000,1000>;
+     TouchHandler.Point3 = <1000,1000>;
+     TouchHandler.Point4 = <1000,1000>;
+     Highlight.Bounds = RectEffect.Value2;
+     TextKey1.Bounds = RectEffect.Value2;
+     TextKey2.Bounds = RectEffect.Value2;
+     TextKey3.Bounds = RectEffect.Value2;
+     TextKey4.Bounds = RectEffect.Value2;
+     TextKey5.Bounds = RectEffect.Value2;
+     TextKey6.Bounds = RectEffect.Value2;
+     TextKey7.Bounds = RectEffect.Value2;
+     TextKey8.Bounds = RectEffect.Value2;
+     TextKey9 .Bounds = RectEffect.Value2;
+     TextKey0.Bounds = RectEffect.Value2;
+     ImageKeyClear.Bounds = RectEffect.Value2;
+     ImageKeyEnter.Bounds = RectEffect.Value2;
 
   }
 
@@ -2091,13 +2124,13 @@ class Screen : Core::Group
   object Core::Outline RecitMenuOutline
   {
     preset Layout = Core::Layout[];
-    preset Bounds = <-40,564,232,1044>;
+    preset Bounds = <-518,1045,-246,1525>;
   }
 
   $rect <20,20,160,60>
   object Views::Image Image3
   {
-    preset Bounds = <-40,564,232,1044>;
+    preset Bounds = <-518,1045,-246,1525>;
     preset Bitmap = Application::Background;
     preset Embedded = true;
   }
@@ -2105,7 +2138,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Text Text3
   {
-    preset Bounds = <-40,662,232,804>;
+    preset Bounds = <-518,1143,-246,1285>;
     preset WrapText = true;
     preset String = "Tranzactia a fost completata cu succes \n\n\n\n\n\n Pentru a putea vedea bonul digital dati click pe buton de mai jos";
     preset Font = Resources::FontSmall;
@@ -2115,7 +2148,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Text Text4
   {
-    preset Bounds = <-40,708,232,738>;
+    preset Bounds = <-518,1189,-246,1219>;
     preset String = "Va multumim pentru achizitie";
     preset Font = Resources::FontSmall;
     preset Embedded = true;
@@ -2124,7 +2157,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Image RecipeReturnButton
   {
-    preset Bounds = <-40,990,96,1044>;
+    preset Bounds = <-518,1471,-382,1525>;
     preset Bitmap = Application::returnbutton;
     preset Embedded = true;
   }
@@ -2132,7 +2165,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::PushButton Bon
   {
-    preset Bounds = <128,996,232,1039>;
+    preset Bounds = <-350,1477,-246,1520>;
     preset Embedded = true;
     preset OnRelease = onBonConfigure;
     preset OnPress = onPressBon;
@@ -2143,10 +2176,10 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler ReturnBonTouchHandler
   {
-    preset Point4 = <-40,996>;
-    preset Point3 = <95,997>;
-    preset Point2 = <95,1041>;
-    preset Point1 = <-40,1041>;
+    preset Point4 = <-518,1477>;
+    preset Point3 = <-383,1478>;
+    preset Point2 = <-383,1522>;
+    preset Point1 = <-518,1522>;
     preset OnPress = onAnimateBonScreen;
     preset Embedded = true;
   }
@@ -2182,7 +2215,7 @@ class Screen : Core::Group
      BuyScreenElement13.Visible = false;
      BuyScreenElement14.Visible = false;
      BuyScreenElement15.Visible = false;
-
+     Text2.Visible = false;
 
 
 
@@ -2200,7 +2233,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Rectangle Rectangle
   {
-    preset Bounds = <-2,564,192,983>;
+    preset Bounds = <-480,1045,-286,1464>;
     preset Color = #FFFFFFE1;
     preset Embedded = true;
     preset Visible = false;
@@ -2209,7 +2242,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Text TextBon
   {
-    preset Bounds = <-2,564,192,983>;
+    preset Bounds = <-480,1045,-286,1464>;
     preset WrapText = true;
     preset Alignment = Views::TextAlignment[AlignVertTop];
     preset String = "Text";
@@ -2219,7 +2252,7 @@ class Screen : Core::Group
     preset Visible = false;
   }
 
-  $rect <-390,840,-190,880>
+  $rect <-390,839,-190,879>
   slot onPressBon
   {
     TextBon.Visible = true;
@@ -2228,7 +2261,7 @@ class Screen : Core::Group
 
   }
 
-  $rect <-350,760,-150,800>
+  $rect <-370,759,-170,799>
   slot onBonConfigure
   {
     var string total =" Bon Fiscal \n\n\n\n";
@@ -2260,15 +2293,15 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler BonTouchHandler
   {
-    preset Point4 = <-2,563>;
-    preset Point3 = <192,562>;
-    preset Point2 = <192,978>;
-    preset Point1 = <-2,978>;
+    preset Point4 = <-480,1044>;
+    preset Point3 = <-286,1043>;
+    preset Point2 = <-286,1459>;
+    preset Point1 = <-480,1459>;
     preset OnPress = onPressBon1;
     preset Embedded = true;
   }
 
-  $rect <-379,800,-179,840>
+  $rect <-380,800,-180,840>
   slot onPressBon1
   {
     if ( !BonTouchHandler.AutoDeflected )  {
@@ -2276,177 +2309,6 @@ class Screen : Core::Group
     Rectangle.Visible = false;    }
 
 
-  }
-
-  // The method UpdateViewState() is invoked automatically after the state of the \
-  // component has been changed. This method can be overridden and filled with logic \
-  // to ensure the visual aspect of the component does reflect its current state. \
-  // For example, the 'enabled' state of the component can affect its colors (disabled \
-  // components may appear pale). In this case the logic of the method should modify \
-  // the respective color properties accordingly to the current 'enabled' state. 
-  // The current state of the component is passed as a set in the parameter aState. \
-  // It reflects the very basic component state like its visibility or the ability \
-  // to react to user inputs. Beside this common state, the method can also involve \
-  // any other variables used in the component as long as they reflect its current \
-  // state. For example, the toggle switch component can take in account its toggle \
-  // state 'on' or 'off' and change accordingly the location of the slider, etc.
-  // Usually, this method will be invoked automatically by the framework. Optionally \
-  // you can request its invocation by using the method @InvalidateViewState().
-  $rect <940,939,1140,979>
-  method void UpdateViewState1( arg Core::ViewState aState )
-  {
-    // Always invoke the inherited method.
-    super( aState );
-
-    // Determine the new state of the affected keyboard.
-    //
-    // isKeyView --> the 'text' or 'image' view representing the pressed key.
-    // isPressed --> the affected key should appear pressed.
-    //
-    var Core::View isKeyView = null;
-    var bool       isPressed = ( TouchHandler.Down && TouchHandler.Inside ) || 
-                                 FlashTimer.Enabled;
-
-    // Search for the view representing the key at the recent touch position.
-    // Do this however only when the position is valid - it lies inside the
-    // area where keys are found (here the area of the TouchHandler) and the
-    // key should appear pressed (isPressed == true)
-    if ( isPressed && ( recentPosition == TouchHandler.GetExtent()))
-      isKeyView = FindViewAtPosition( null, recentPosition, Core::ViewState[]);
-
-    /*
-       In this template, the keys are represented by simple 'text' and 'image'
-       views. Any other view is considered as not corresponding to a key. Thus
-       ignore every view, which is not an instance of 'text' or 'image'.
-     
-       TO DO:
-
-       If you are using other views (not image nor text) to represent the keys,
-       adapt the object runtime cast operations in the condition below to react
-       on your particular views only. After this condition, 'isKeyView' should
-       be either 'null' if the user is not pressing a key or it should refer to
-       the view which represents the affected key.
-    */
-
-    if (((Views::Text)isKeyView == null ) && ((Views::Image)isKeyView == null ))
-      isKeyView = null;
-
-    /*
-
-      TO DO:
-
-      Depending on your keyboard design, you have surely added some new views
-      to your keyboard. In the below code you should update the properties of
-      these views. For example, when the user drags the finger between two keys
-      one key should appear pressed while the other released.
-
-      Whether the user has pressed/released a key can be estimated by comparing
-      the variable 'isKeyView' with 'keyView'. If they differ, the user has
-      pressed/released a key.
-
-        if ( isKeyView != keyView )
-          ...
-
-      In practice, the variable 'isKeyView' represents the just pressed key.
-      Your implementation should thus ensure, that the affected key appears
-      pressed. If the user is not pressing any key, the variable is 'null'.
-
-      The variable 'keyView' represents the key pressed in the preceding
-      interaction. This key has thus to appear released. If there was no key
-      pressed, the variable is 'null'.
-
-      In the simplest case you modify the properties of the affected views, so
-      they reflect their new state. Please note, the variables 'isKeyView' and
-      'keyView' are declared with the generic Core::View class. In order to
-      modify view specific properties you have to apply an object runtime cast
-      operation on them. For example, if you are using 'text' views to represent
-      keys, cast the variable to (Views::Text).
-
-        if ( isKeyView != null )
-          ((Views::Text)isKeyView).Color = color for a pressed key
-
-        if ( keyView != null )
-          ((Views::Text)keyView).Color = color for a released key
-
-      Or you use, as demonstrated below, another views to highlight the area
-      occupied by the affected key. For example, arrange some 'border' view
-      to appear at the position of the pressed key with additional 5 pixel 
-      padding:
-
-        if ( isKeyView != null )
-          BorderView.Bounds = isKeyView.GetExtent() * <5,5>;
-
-      HINT:
-
-      Instead of instantly alternate the views properties you can also start
-      here effects to do this with an animation. Important: To decide when
-      to start an effect you should compare the current state of the keyboard
-      (e.g. 'isKeyView') with its preceding state (e.g. variable 'keyView').
-
-      Assuming you have already added to your keyboard component a new effect
-      member, named it 'pressedEffect' and configured it to animate e.g. the
-      opacity of an image lying behind the pressed key. Then following is 
-      sufficient to trigger the animation:
-
-        if (( isKeyView != null ) && ( keyView == null ))
-        {
-          pressedEffect.Reversed = false;
-          pressedEffect.Enabled  = true;
-        }
-        else if (( isKeyView == null ) && ( keyView != null ))
-        {
-          pressedEffect.Reversed = true;
-          pressedEffect.Enabled  = true;
-        }
-
-    */
-
-    // Detect a state alternation when the user presses a new or releases a
-    // previously pressed key.
-    if ( isKeyView != keyView )
-    {
-      var Views::Text  isTextKeyView  = (Views::Text)isKeyView;
-      var Views::Text  textKeyView    = (Views::Text)keyView;
-      var Views::Image isImageKeyView = (Views::Image)isKeyView;
-      var Views::Image imageKeyView   = (Views::Image)keyView;
-
-      // If the user is actually pressing a key, arrange the background view
-      // just behind the affected key view so it appears selected. If no key
-      // is pressed, the background should disappear.
-      if ( isKeyView != null )
-      {
-        Highlight.Bounds  = isKeyView.GetExtent();
-        Highlight.Visible = true;
-      }
-      else
-        Highlight.Visible = false;
-
-      // If the user has pressed a key represented by a 'text' view, change the
-      // color of the text to appear highlighted.
-      if ( isTextKeyView != null )
-        isTextKeyView.Color = #FFFFFFFF;
-
-      // If the user has released a key represented by a 'text' view, restore
-      // the color of the text.
-      if ( textKeyView != null )
-        textKeyView.Color = #000000FF;
-
-      // If the user has pressed a key represented by an 'image' view, change the
-      // color of the bitmap to appear highlighted.
-      if ( isImageKeyView != null )
-        isImageKeyView.Color = #FFFFFFFF;
-
-      // If the user has released a key represented by an 'image' view, restore
-      // the color of the view.
-      if ( imageKeyView != null )
-        imageKeyView.Color = #000000FF;
-    }
-
-    // Remember the current state. Next time when the UpdateViewState() is called
-    // you can compare the 'old' state with the 'new' state and perform more
-    // sophisticated update, e.g. you can start an animation effect for the
-    // pressed <<-->> not pressed transition.
-    keyView = isKeyView;
   }
 
   // State management
@@ -2616,7 +2478,7 @@ class Screen : Core::Group
   object Views::Rectangle Background1
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
-    preset Bounds = <62,274,197,404>;
+    preset Bounds = <819,308,954,438>;
     preset Embedded = false;
   }
 
@@ -2625,7 +2487,7 @@ class Screen : Core::Group
   object Views::Border Border1
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
-    preset Bounds = <62,274,197,404>;
+    preset Bounds = <819,308,954,438>;
     preset Width = 3;
     preset Color = #000000FF;
     preset Embedded = false;
@@ -2635,10 +2497,10 @@ class Screen : Core::Group
   object Core::SimpleTouchHandler TouchHandler
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
-    preset Point4 = <70,397>;
-    preset Point3 = <189,397>;
-    preset Point2 = <189,281>;
-    preset Point1 = <70,281>;
+    preset Point4 = <827,431>;
+    preset Point3 = <946,431>;
+    preset Point2 = <946,315>;
+    preset Point1 = <827,315>;
     preset OnDrag = onDragTouch;
     preset OnRelease = onReleaseTouch;
     preset OnPress = onPressTouch;
@@ -2650,7 +2512,7 @@ class Screen : Core::Group
   $rect <20,20,160,60>
   object Views::Rectangle Highlight
   {
-    preset Bounds = <70,281,110,310>;
+    preset Bounds = <827,315,867,344>;
     preset Color = #FF0000FF;
     preset Embedded = false;
     preset Visible = false;
@@ -2660,7 +2522,7 @@ class Screen : Core::Group
   object Views::Text TextKey1
   {
     preset Layout = Core::Layout[AlignToLeft, AlignToTop, ResizeHorz, ResizeVert];
-    preset Bounds = <70,281,110,310>;
+    preset Bounds = <827,315,867,344>;
     preset String = "1";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2671,7 +2533,7 @@ class Screen : Core::Group
   object Views::Text TextKey2
   {
     preset Layout = Core::Layout[AlignToTop, ResizeHorz, ResizeVert];
-    preset Bounds = <110,281,149,310>;
+    preset Bounds = <867,315,906,344>;
     preset String = "2";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2682,7 +2544,7 @@ class Screen : Core::Group
   object Views::Text TextKey3
   {
     preset Layout = Core::Layout[AlignToRight, AlignToTop, ResizeHorz, ResizeVert];
-    preset Bounds = <149,281,189,310>;
+    preset Bounds = <906,315,946,344>;
     preset String = "3";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2693,7 +2555,7 @@ class Screen : Core::Group
   object Views::Text TextKey4
   {
     preset Layout = Core::Layout[AlignToLeft, ResizeHorz, ResizeVert];
-    preset Bounds = <70,310,110,339>;
+    preset Bounds = <827,344,867,373>;
     preset String = "4";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2704,7 +2566,7 @@ class Screen : Core::Group
   object Views::Text TextKey5
   {
     preset Layout = Core::Layout[ResizeHorz, ResizeVert];
-    preset Bounds = <110,310,149,339>;
+    preset Bounds = <867,344,906,373>;
     preset String = "5";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2715,7 +2577,7 @@ class Screen : Core::Group
   object Views::Text TextKey6
   {
     preset Layout = Core::Layout[AlignToRight, ResizeHorz, ResizeVert];
-    preset Bounds = <149,310,189,339>;
+    preset Bounds = <906,344,946,373>;
     preset String = "6";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2726,7 +2588,7 @@ class Screen : Core::Group
   object Views::Text TextKey7
   {
     preset Layout = Core::Layout[AlignToLeft, ResizeHorz, ResizeVert];
-    preset Bounds = <70,339,110,368>;
+    preset Bounds = <827,373,867,402>;
     preset String = "7";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2737,7 +2599,7 @@ class Screen : Core::Group
   object Views::Text TextKey8
   {
     preset Layout = Core::Layout[ResizeHorz, ResizeVert];
-    preset Bounds = <110,339,149,368>;
+    preset Bounds = <867,373,906,402>;
     preset String = "8";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2748,7 +2610,7 @@ class Screen : Core::Group
   object Views::Text TextKey9
   {
     preset Layout = Core::Layout[AlignToRight, ResizeHorz, ResizeVert];
-    preset Bounds = <149,339,189,368>;
+    preset Bounds = <906,373,946,402>;
     preset String = "9";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2759,7 +2621,7 @@ class Screen : Core::Group
   object Views::Text TextKey0
   {
     preset Layout = Core::Layout[AlignToBottom, ResizeHorz, ResizeVert];
-    preset Bounds = <110,368,149,397>;
+    preset Bounds = <867,402,906,431>;
     preset String = "0";
     preset Font = Resources::FontLarge;
     preset Color = #000000FF;
@@ -2770,7 +2632,7 @@ class Screen : Core::Group
   object Views::Image ImageKeyClear
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToLeft, ResizeHorz, ResizeVert];
-    preset Bounds = <70,368,110,397>;
+    preset Bounds = <827,402,867,431>;
     preset Color = #000000FF;
     preset FrameNumber = 4;
     preset Bitmap = Resources::KeyIconsMedium;
@@ -2781,11 +2643,33 @@ class Screen : Core::Group
   object Views::Image ImageKeyEnter
   {
     preset Layout = Core::Layout[AlignToBottom, AlignToRight, ResizeHorz, ResizeVert];
-    preset Bounds = <149,368,189,397>;
+    preset Bounds = <906,402,946,431>;
     preset Color = #000000FF;
     preset FrameNumber = 6;
     preset Bitmap = Resources::KeyIconsMedium;
     preset Embedded = false;
+  }
+
+  $rect <-350,214,-150,254>
+  slot Slot
+  {
+       if ( TouchHandler.Down && TouchHandler.Inside )
+    {
+        Border2.Visible = true;
+    }
+
+
+
+
+  }
+
+  $rect <20,20,160,60>
+  object Views::Border Border2
+  {
+    preset Bounds = <6,104,131,210>;
+    preset Width = 5;
+    preset Color = #30902D96;
+    preset Visible = false;
   }
 
   // Directives to adapt the order of the above members according to how these members 
@@ -2958,7 +2842,6 @@ class Screen : Core::Group
   $member onBonConfigure
   $member BonTouchHandler
   $member onPressBon1
-  $member UpdateViewState1
   $member Note6
   $member Note7
   $member Note8
@@ -2986,6 +2869,8 @@ class Screen : Core::Group
   $member TextKey0
   $member ImageKeyClear
   $member ImageKeyEnter
+  $member Slot
+  $member Border2
 }
 
 $rect <70,190,270,230>
