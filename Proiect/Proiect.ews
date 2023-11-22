@@ -4,9 +4,9 @@ attr active = Application::Screen;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Application::Screen.onBonConfigure;
-attr codeSelEnd = <34,4>;
-attr codeSelStart = <34,4>;
+attr codeInspector = Application::Screen.onPressBon1;
+attr codeSelEnd = <0,0>;
+attr codeSelStart = <0,0>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -40,65 +40,15 @@ view Project
   attr zoom = 1.0;
 }
 
-view unit Application
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-332,-61>;
-  attr zoom = 0.75;
-}
-
-view class Application::BuyScreenElement
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,1>;
-  attr codeInspector = OnSetPrice;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-407,-103>;
-  attr zoom = 1.0;
-}
-
-view class Application::BuyScreen
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = Slot;
-  attr codeSelEnd = <23,0>;
-  attr codeSelStart = <23,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
-view class Application::SoupMenu
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-446,6>;
-  attr zoom = 0.5;
-}
-
 view class Application::Screen
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = onBonConfigure;
-  attr codeSelEnd = <34,4>;
-  attr codeSelStart = <34,4>;
+  attr codeInspector = onPressBon1;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
-  attr scrollTo = <-1018,2>;
-  attr zoom = 0.5;
-}
-
-view class Application::DesertMenu
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,1>;
-  attr codeInspector = onPressBon;
-  attr codeSelEnd = <113,8>;
-  attr codeSelStart = <113,8>;
-  attr enableWireMode = false;
-  attr scrollTo = <-486,-72>;
+  attr scrollTo = <-468,-103>;
   attr zoom = 0.5;
 }
 
@@ -109,14 +59,16 @@ view class Application::Application
   attr zoom = 0.5;
 }
 
-view class Application::NumKeyboard
+view unit Application
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,143>;
-  attr codeInspector = UpdateViewState;
-  attr codeSelEnd = <20,151>;
-  attr codeSelStart = <0,8>;
   attr enableWireMode = false;
-  attr scrollTo = <-126,-199>;
-  attr zoom = 0.75;
+  attr scrollTo = <-7,137>;
+  attr zoom = 1.0;
+}
+
+view class Application::BuyScreenElement
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-482,-165>;
+  attr zoom = 1.5;
 }
