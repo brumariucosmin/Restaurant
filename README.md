@@ -1,4 +1,5 @@
 # Restaurant
+![logo](https://github.com/etc-sea/Restaurant/assets/106124168/f8e8ed23-869e-473f-a128-06b29a33bee3)
 
 Proiectu cu restaurant , interfata meniu
 
